@@ -1,0 +1,31 @@
+{
+  "name": "testinggrounds",
+  "version": "1.0.0",
+  "description": "This is a test, but if it works may become my final project'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^2.0.3",
+    "core-util-is": "^1.0.2",
+    "ejs": "^2.6.1",
+    "express": "^4.17.1",
+    "express-session": "^1.16.1",
+    "mongod": "^2.0.0",
+    "mongoose": "^5.5.12",
+    "node-sass": "^4.12.0",
+    "node-sass-middleware": "^0.11.0",
+    "nodemon": "^1.19.0",
+    "path": "^0.12.7",
+    "session": "^0.1.0",
+    "underscore": "^1.9.1",
+    "webpack": "^4.32.2"
+  }
+}
