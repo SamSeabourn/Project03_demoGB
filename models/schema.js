@@ -20,24 +20,28 @@ var UserSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    passwordConf: {
-      type: String,
-      required: true
-    },
     currentCash: Number,
-    games: {
-      gameName: {
-        type: String,
-        unique: true
-      },
-      gameUrl: String,
-      description: String,
-      imageUrl: String,
-      currentRevenue: Number,
-      stars: Number,
-      copiesSold: Number
-    }
 });
+
+var GameSchema = new mongoose.Schema({
+		title: {
+			type: String,
+			unique: true,
+		},
+		description: {
+			type: String,
+			required: true,
+		},
+		score: {
+			type: Number
+		},
+		copiesSold:{
+			type: Number
+		},
+		owner: {
+			type: String
+		}
+})
 
 
 

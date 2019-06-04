@@ -6,15 +6,13 @@
   <div class="">
     <h1> SIGN UP PAGE </h1>
   </div>
-
-<!-- <% var gamerNamez = ["BlackFox" , "SKI", , "DieDiePew" , "Bobbaz" , "BroSyndicate" , "Hideo Kazama", "TourPwnage", "Binja"] %>
-<% var rand = gamerNamez[Math.floor(Math.random() * gamerNamez.length)]  %> -->
-
+<% let errorMessage = "ERROR AREA" %>
   <form action"/signup/go" method="POST">
     <input type="email" placeholder="Your Email" value="" name="email"> <br/>
     <input type="text" placeholder="Username" value="" name="username"> <br/>
     <input type="password" placeholder="Password" value="" name="password"> <br/>
     <input type="password" placeholder="Password again" value="" name="passwordConf"> <br/>
+		<span class="invalidPassword"> <%= errorMessage %></span>
     <button type="submit"/> Join </submit>
   </form>
 </body>

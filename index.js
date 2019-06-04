@@ -5,6 +5,7 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const router = express.Router();
+const MONGO_CREDENTUALS = require('./keysAndThings.js')
 
 const PORT = process.env.PORT || 1337
 
@@ -13,7 +14,7 @@ global.User = require('./models/schema')
 
 //////// MONGOOSE CONFIG /////////
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb+srv://Sam:@demogb-kmxfo.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect( MONGO_CREDENTUALS.KEY, {useNewUrlParser: true} );
 mongoose.set('useFindAndModify', false); // Whatever
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -57,7 +58,7 @@ server.use(express.static('public'));
 
 ///////// Routes
 server.get('/', (req, res) => {
-  res.render('signin.ejs');
+  res.render('/');
 });
 
 server.get('/home', (req, res) => {
@@ -68,10 +69,6 @@ server.get('/signup', (req, res) => {
   res.render('signup.ejs');
 });
 
-server.get('/signup/go', (req, res) => {
-  let data = req.query
-  console.log("this is the data that came out: " + data);
-});
 
 server.get('/', (req, res) => {
   res.render('home.ejs');
@@ -87,15 +84,21 @@ server.get('/playdemos', (req, res) => {
 
 
 server.post('/signup', (req, res) => {
-  let data = req.body
-  console.log( data );
-  User.create( { data }, function( error,data ){
-      if (error) {
-        console.log("There was and error" + error);
-      } else {
-        console.log("data was added to the collection");
-      }
-    } )
+  var data = req.body
+	if (data.password !== data.passwordConf) {
+		console.log("Passwords do not match");
+		res.render('signup.ejs')
+	} else {
+	  User.create( data , function( error ,data ){
+	      if (error) {
+	        console.log("There was an error bro: " + error);
+	      } else {
+	        console.log("data following user was added to the collection");
+					console.log( data );
+					res.redirect('/home')
+	      }
+	    })
+		}
 });
 
 
