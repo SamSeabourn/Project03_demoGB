@@ -4,6 +4,7 @@ const _ = require('underscore');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const router = express.Router();
 
 const PORT = process.env.PORT || 1337
 
@@ -12,9 +13,7 @@ global.User = require('./models/schema')
 
 //////// MONGOOSE CONFIG /////////
 mongoose.Promise = global.Promise
-////
-mongoose.connect('mongodb+srv://Sam:testing1234@demogb-kmxfo.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
-////
+mongoose.connect('mongodb+srv://Sam:@demogb-kmxfo.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
 mongoose.set('useFindAndModify', false); // Whatever
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -22,28 +21,29 @@ db.once('open', function() {
 });
 
 // Testing adding data Params will eventualy need to passed into here
-User.create({
-    email: "sam.seabourn@gmail.com",
-    username: "Test3",
-    password: "chicken",
-    passwordConf: "chicken",
-    currentCash: 13.50,
-    games: {
-      gameUrl: "http://cloudinary.mymadassgame.com",
-      description: "Pretty sick game that I made I guess cooleo, GG",
-      imageUrl: "http://fillmurray.com/200/200",
-      currentRevenue: 0,
-      stars: 0,
-      copiesSold: 0
-    }
-  }, function(error,data){
-    if (error) {
-      console.log("There was an error:" + error);
-    } else {
-      console.log("the following data was added to the collection:");
-      console.log( data );
-    }
-  } )
+// User.create({
+//     email: "sam.seabourn5@gmail.com",
+//     username: "Test5",
+//     password: "chicken",
+//     passwordConf: "chicken",
+//     currentCash: 13.50,
+//     games: {
+//       gameName: "Dragon Quest",
+//       gameUrl: "http://cloudinary.mymadassgame.com",
+//       description: "Pretty sick game that I made I guess cooleo, GG",
+//       imageUrl: "http://fillmurray.com/200/200",
+//       currentRevenue: 0,
+//       stars: 0,
+//       copiesSold: 0
+//     }
+//   }, function(error,data){
+//     if (error) {
+//       console.log("There was an error:" + error);
+//     } else {
+//       console.log("the following data was added to the collection:");
+//       console.log( data );
+//     }
+//   })
 
 
 ///////// Views
@@ -54,6 +54,8 @@ server.set('view-engine', 'ejs');
 server.use(express.static('public'));
 
 
+
+///////// Routes
 server.get('/', (req, res) => {
   res.render('signin.ejs');
 });
@@ -64,6 +66,11 @@ server.get('/home', (req, res) => {
 
 server.get('/signup', (req, res) => {
   res.render('signup.ejs');
+});
+
+server.get('/signup/go', (req, res) => {
+  let data = req.query
+  console.log("this is the data that came out: " + data);
 });
 
 server.get('/', (req, res) => {
@@ -78,10 +85,11 @@ server.get('/playdemos', (req, res) => {
   res.render('playdemos.ejs');
 });
 
+
 server.post('/signup', (req, res) => {
   let data = req.body
   console.log( data );
-  User.create( { data }, function(error,data){
+  User.create( { data }, function( error,data ){
       if (error) {
         console.log("There was and error" + error);
       } else {

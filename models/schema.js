@@ -26,6 +26,10 @@ var UserSchema = new mongoose.Schema({
     },
     currentCash: Number,
     games: {
+      gameName: {
+        type: String,
+        unique: true
+      },
       gameUrl: String,
       description: String,
       imageUrl: String,
@@ -50,5 +54,7 @@ UserSchema.pre('save', function (next) {
 });
 
 
-let User = mongoose.model('User', UserSchema);
+
+
+const User = mongoose.model('User', UserSchema);
 module.exports = User
