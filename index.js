@@ -15,7 +15,7 @@ global.User = require('./models/schema')
 //////// MONGOOSE CONFIG /////////
 mongoose.Promise = global.Promise
 mongoose.connect( MONGO_CREDENTUALS.KEY, { useNewUrlParser: true } );
-mongoose.set('useFindAndModify', false); // Whatever
+mongoose.set('useFindAndModify', false);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {});
@@ -27,6 +27,9 @@ server.use(bodyParser.json());
 server.set('view-engine', 'ejs');
 server.use(express.static('public'));
 
+///////// SESSIONS CONFIG /////////
+
+
 ///////// ROUTES /////////
 server.get('/', (req, res) => {
   res.render('/');
@@ -35,6 +38,7 @@ server.get('/home', (req, res) => {
   res.render('home.ejs');;
 });
 server.get('/signup', (req, res) => {
+	GBBOMB() // Lets throw one back to the retro huslers and 80s babies out there
 	let error = ""
   res.render('signup.ejs', { error });
 });
@@ -60,9 +64,9 @@ server.post('/signup', (req, res) => {
 					return
 	      } else {
 	        console.log("data following user was added to the collection");
-					console.log( data );
+					console.log( data._id );
 					res.redirect('/home')
-					GBBOMB() // Throw back to 1987
+
 	      }
 	    })
 		}
@@ -128,6 +132,16 @@ server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }
 //     }
 //   })
 //
+
+
+
+
+
+
+
+
+
+///////// THROW DOWN SOME GAMEBOIS /////////
 const GBBOMB = () => {
 		console.log(" _________________________________")
 		console.log("|OFFo oON                        |");
