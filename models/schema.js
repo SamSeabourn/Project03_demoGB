@@ -7,18 +7,22 @@ var UserSchema = new mongoose.Schema({
     email: {
       type: String,
       unique: true,
-      required: false,
+      required: true,
       trim: true
     },
     username: {
       type: String,
       unique: true,
-      require: true,
+      required: true,
       trim: true
     },
-    passwordDigest: {
+    password: {
       type: String,
-      required: false
+      required: true
+    },
+    passwordConf: {
+      type: String,
+      required: true
     },
     currentCash: Number,
     games: {
@@ -31,12 +35,14 @@ var UserSchema = new mongoose.Schema({
     }
 });
 
-//This ensures the password is encrypted before post request
+
+
+// This ensures the password is encrypted before post request
 UserSchema.pre('save', function (next) {
-  var user = this;
+  let user = this;
   bcrypt.hash(user.password, 10, function (err, hash){
     if (err) {
-      return next(err);
+      return next("Hashing error:" + err);
     }
     user.password = hash;
     next();
@@ -44,4 +50,5 @@ UserSchema.pre('save', function (next) {
 });
 
 
-module.exports = mongoose.model('Users', UserSchema)
+let User = mongoose.model('User', UserSchema);
+module.exports = User

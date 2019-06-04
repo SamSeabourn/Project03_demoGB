@@ -21,6 +21,30 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
 });
 
+// Testing adding data Params will eventualy need to passed into here
+User.create({
+    email: "sam.seabourn@gmail.com",
+    username: "Test3",
+    password: "chicken",
+    passwordConf: "chicken",
+    currentCash: 13.50,
+    games: {
+      gameUrl: "http://cloudinary.mymadassgame.com",
+      description: "Pretty sick game that I made I guess cooleo, GG",
+      imageUrl: "http://fillmurray.com/200/200",
+      currentRevenue: 0,
+      stars: 0,
+      copiesSold: 0
+    }
+  }, function(error,data){
+    if (error) {
+      console.log("There was an error:" + error);
+    } else {
+      console.log("the following data was added to the collection:");
+      console.log( data );
+    }
+  } )
+
 
 ///////// Views
 const server = express();
@@ -108,22 +132,3 @@ server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }
 // var user = mongoose.model("User" , UserSchema )
 //////////
 /////// Create user
-// user.create({
-//     username: "Test2",
-//     passwordDigest: "chicken",
-//     currentCash: 13.50,
-//     games: {
-//       gameUrl: "",
-//       description: "",
-//       imageUrl: "",
-//       currentRevenue: 0,
-//       stars: 0,
-//       copiesSold: 0
-//     }
-//   }, function(error,data){
-//     if (error) {
-//       console.log("There was and error" + error);
-//     } else {
-//       console.log("data was added to the collection");
-//     }
-//   } )
