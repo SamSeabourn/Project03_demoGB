@@ -7,111 +7,71 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const MONGO_CREDENTUALS = require('./keysAndThings.js')
 
+///////// PORT NUMBER /////////
 const PORT = process.env.PORT || 1337
-
 
 global.User = require('./models/schema')
 
 //////// MONGOOSE CONFIG /////////
 mongoose.Promise = global.Promise
-mongoose.connect( MONGO_CREDENTUALS.KEY, {useNewUrlParser: true} );
+mongoose.connect( MONGO_CREDENTUALS.KEY, { useNewUrlParser: true } );
 mongoose.set('useFindAndModify', false); // Whatever
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-});
+db.once('open', function() {});
 
-// Testing adding data Params will eventualy need to passed into here
-// User.create({
-//     email: "sam.seabourn5@gmail.com",
-//     username: "Test5",
-//     password: "chicken",
-//     passwordConf: "chicken",
-//     currentCash: 13.50,
-//     games: {
-//       gameName: "Dragon Quest",
-//       gameUrl: "http://cloudinary.mymadassgame.com",
-//       description: "Pretty sick game that I made I guess cooleo, GG",
-//       imageUrl: "http://fillmurray.com/200/200",
-//       currentRevenue: 0,
-//       stars: 0,
-//       copiesSold: 0
-//     }
-//   }, function(error,data){
-//     if (error) {
-//       console.log("There was an error:" + error);
-//     } else {
-//       console.log("the following data was added to the collection:");
-//       console.log( data );
-//     }
-//   })
-
-
-///////// Views
+///////// VIEW SETUP /////////
 const server = express();
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 server.set('view-engine', 'ejs');
 server.use(express.static('public'));
 
-
-
-///////// Routes
+///////// ROUTES /////////
 server.get('/', (req, res) => {
   res.render('/');
 });
-
 server.get('/home', (req, res) => {
   res.render('home.ejs');;
 });
-
 server.get('/signup', (req, res) => {
-  res.render('signup.ejs');
+	let error = ""
+  res.render('signup.ejs', { error });
 });
-
-
 server.get('/', (req, res) => {
   res.render('home.ejs');
 });
-
 server.get('/signin', (req, res) => {
   res.render('signin.ejs');
 });
-
 server.get('/playdemos', (req, res) => {
   res.render('playdemos.ejs');
 });
-
-
 server.post('/signup', (req, res) => {
+	let error = ""
   var data = req.body
 	if (data.password !== data.passwordConf) {
-		console.log("Passwords do not match");
-		res.render('signup.ejs')
+		res.render('signup.ejs', {error:"Passwords do not match"})
 	} else {
 	  User.create( data , function( error ,data ){
 	      if (error) {
 	        console.log("There was an error bro: " + error);
+					res.render("signup.ejs", {error: "This username or email is already in use"})
+					return
 	      } else {
 	        console.log("data following user was added to the collection");
 					console.log( data );
 					res.redirect('/home')
+					GBBOMB() // Throw back to 1987
 	      }
 	    })
 		}
 });
 
-
-
-
+///////// SERVER SETUP //////////
 server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }`));
 
-
-
-
-
-
-//Code grave
+///////// CODE GRAVE YARD //////////
 
 //////Mongo DB Connection via Mongo docs
 // const MongoClient = require('mongodb').MongoClient;
@@ -143,3 +103,57 @@ server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }
 // var user = mongoose.model("User" , UserSchema )
 //////////
 /////// Create user
+// Testing adding data Params will eventualy need to passed into here
+// User.create({
+//     email: "sam.seabourn5@gmail.com",
+//     username: "Test5",
+//     password: "chicken",
+//     passwordConf: "chicken",
+//     currentCash: 13.50,
+//     games: {
+//       gameName: "Dragon Quest",
+//       gameUrl: "http://cloudinary.mymadassgame.com",
+//       description: "Pretty sick game that I made I guess cooleo, GG",
+//       imageUrl: "http://fillmurray.com/200/200",
+//       currentRevenue: 0,
+//       stars: 0,
+//       copiesSold: 0
+//     }
+//   }, function(error,data){
+//     if (error) {
+//       console.log("There was an error:" + error);
+//     } else {
+//       console.log("the following data was added to the collection:");
+//       console.log( data );
+//     }
+//   })
+//
+const GBBOMB = () => {
+		console.log(" _________________________________")
+		console.log("|OFFo oON                        |");
+		console.log("| .----------------------------. |");
+		console.log("| |  .----------------------.  | |");
+		console.log("| |  |                      |  | |");
+		console.log("| |))|                      |  | |");
+		console.log("| |  |                      |  | |");
+		console.log("| |  |                      |  | |");
+		console.log("| |  |                      |  | |");
+		console.log("| |  |                      |  | |");
+		console.log("| |  |                      |  | |");
+		console.log("| |  '----------------------'  | |");
+		console.log("| |__GAME BOY_________________/  |");
+		console.log("|             ________           |");
+		console.log("|    .     (Nintendo)            |");
+		console.log("|  _| |_                   .-.   |");
+		console.log("|-[_   _]-            .-. (   )  |");
+		console.log("|   |_|              (   ) '-'   |");
+		console.log("|    '                '-'   A    |");
+		console.log("|                      B         |");
+		console.log("|             ___   ___          |");
+		console.log("|            (___) (___)     ,., |");
+		console.log("|           select start    ;:;: |");
+		console.log("|                         ,;:;' /");
+		console.log("|                        ,;:;' /");
+		console.log("|                       ,:;:' /");
+		console.log("|----------------------------/");
+}

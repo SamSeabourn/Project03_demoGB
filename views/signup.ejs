@@ -6,13 +6,14 @@
   <div class="">
     <h1> SIGN UP PAGE </h1>
   </div>
-<% let errorMessage = "ERROR AREA" %>
+
+
   <form action"/signup/go" method="POST">
     <input type="email" placeholder="Your Email" value="" name="email"> <br/>
     <input type="text" placeholder="Username" value="" name="username"> <br/>
     <input type="password" placeholder="Password" value="" name="password"> <br/>
     <input type="password" placeholder="Password again" value="" name="passwordConf"> <br/>
-		<span class="invalidPassword"> <%= errorMessage %></span>
+		<span class="invalidPassword"> <%= error %></span> <br/>
     <button type="submit"/> Join </submit>
   </form>
 </body>
