@@ -8,9 +8,10 @@
     <h1> SIGN IN PAGE </h1>
   </div>
 
-  <form>
-    <input type="text" placeholder="username" value=""> <br/>
-    <input type="password" placeholder="password" value=""> <br/>
+  <form action="/signin/" method="POST">
+		<input type="text" placeholder="Username" name="username"> <br/>
+    <input type="password" placeholder="Password" name="password"> <br/>
+				<span class="invalidPassword">  </span> <br/>
     <input type="submit" value="Sign In" />
   </form>
   <span>Not a member? <a href="/signup"> sign up here </a></span>

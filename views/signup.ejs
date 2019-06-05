@@ -8,12 +8,12 @@
   </div>
 
 
-  <form action"/signup/go" method="POST">
-    <input type="email" placeholder="Your Email" value="" name="email"> <br/>
-    <input type="text" placeholder="Username" value="" name="username"> <br/>
-    <input type="password" placeholder="Password" value="" name="password"> <br/>
-    <input type="password" placeholder="Password again" value="" name="passwordConf"> <br/>
-		<span class="invalidPassword"> <%= error %></span> <br/>
+  <form action"/signup/" method="POST">
+    <input type="email" placeholder="Your Email" name="email"> <br/>
+    <input type="text" placeholder="Username" name="username"> <br/>
+    <input type="password" placeholder="Password" name="password"> <br/>
+    <input type="password" placeholder="Password again" name="passwordConf"> <br/>
+		<span class="invalidPassword"> <%= error %> </span> <br/>
     <button type="submit"/> Join </submit>
   </form>
 </body>

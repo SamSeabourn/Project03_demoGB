@@ -2,10 +2,11 @@ const express = require('express');
 const ejs = require('ejs');
 const _ = require('underscore');
 const axios = require('axios');
+var session = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const router = express.Router();
-const MONGO_CREDENTUALS = require('./keysAndThings.js')
+const MONGO_CREDENTUALS = require('./keysAndThings.js');
+const jwt = require('jsonwebtoken')
 
 ///////// PORT NUMBER /////////
 const PORT = process.env.PORT || 1337
@@ -13,9 +14,9 @@ const PORT = process.env.PORT || 1337
 global.User = require('./models/schema')
 
 //////// MONGOOSE CONFIG /////////
-mongoose.Promise = global.Promise
-mongoose.connect( MONGO_CREDENTUALS.KEY, { useNewUrlParser: true } );
-mongoose.set('useFindAndModify', false);
+mongoose.Promise = global.Promise;
+mongoose.connect( MONGO_CREDENTUALS.KEY, { useNewUrlParser: true , useCreateIndex: true } );
+mongoose.set('useFindAndModify', false );
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {});
@@ -28,6 +29,11 @@ server.set('view-engine', 'ejs');
 server.use(express.static('public'));
 
 ///////// SESSIONS CONFIG /////////
+server.use(session({
+  secret: 'HotboisAndGamerGirls',
+  resave: true,
+  saveUninitialized: false
+}));
 
 
 ///////// ROUTES /////////
@@ -38,9 +44,7 @@ server.get('/home', (req, res) => {
   res.render('home.ejs');;
 });
 server.get('/signup', (req, res) => {
-	GBBOMB() // Lets throw one back to the retro huslers and 80s babies out there
-	let error = ""
-  res.render('signup.ejs', { error });
+  res.render('signup.ejs', { error: "" });
 });
 server.get('/', (req, res) => {
   res.render('home.ejs');
@@ -59,18 +63,32 @@ server.post('/signup', (req, res) => {
 	} else {
 	  User.create( data , function( error ,data ){
 	      if (error) {
-	        console.log("There was an error bro: " + error);
 					res.render("signup.ejs", {error: "This username or email is already in use"})
 					return
 	      } else {
 	        console.log("data following user was added to the collection");
-					console.log( data._id );
+					console.log( data );
 					res.redirect('/home')
-
 	      }
 	    })
 		}
 });
+
+server.post('/signin', (req, res) => {
+	let error = ""
+  // var userData = req.body
+	User.find({ username: 'Sam' }, function (err, res) {
+		if (error) {
+			console.log("There was an error:");
+			console.log( err );
+		}
+			console.log( res[0] )
+	});
+	// res.render('signin.ejs', { error })
+})
+
+
+
 
 ///////// SERVER SETUP //////////
 server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }`));
