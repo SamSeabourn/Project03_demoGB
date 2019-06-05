@@ -78,6 +78,7 @@ server.post('/signup', (req, res) => {
 server.post('/signin', (req, res) => {
 	let error = ""
 	let user = req.body
+	console.log( user );
 	let enteredPassword = user.password
 	let hash = "Hash not updated"
 	console.log( "1. The entered username is " + user.username );
@@ -94,13 +95,13 @@ server.post('/signin', (req, res) => {
 		hash = res[0].password
 		console.log("3. The saved hash from the DB " + hash );
 		console.log("3. The prehashed enteredpassword is " + enteredPassword );
-	});
 		bcrypt.compare(enteredPassword, hash, function(err, res) {
-			console.log( enteredPassword );
-			console.log( hash );
 			if (res) {
 				console.log(" We have a mother fucking login boiz");
+			} else {
+				console.log(" Doesnt match man");
 			}
+		});
 
 	});
 	// res.render('signin.ejs', { error })
