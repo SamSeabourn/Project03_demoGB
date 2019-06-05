@@ -38,24 +38,44 @@ server.use(session({
 
 
 ///////// ROUTES /////////
-server.get('/', (req, res) => {
-  res.render('/');
-});
+
+// Home Page
 server.get('/home', (req, res) => {
+	jwt.verify(req.token, 'secretKey123', (err, authData) => {
+		if(err) {
+			res.sendStatus(403)
+		} else {
+			res.json({
+				authData
+			})
+			res.render('home.ejs');;
+
+		}
+	})
   res.render('home.ejs');;
 });
+
+//Sign Up
 server.get('/signup', (req, res) => {
   res.render('signup.ejs', { error: "" });
 });
+
+// Home routed to sign in
 server.get('/', (req, res) => {
-  res.render('home.ejs');
+  res.render('signin.ejs', { error: "" });
 });
+
+// Sign in
 server.get('/signin', (req, res) => {
   res.render('signin.ejs', { error: "" });
 });
+
+// Play demos
 server.get('/playdemos', (req, res) => {
   res.render('playdemos.ejs');
 });
+
+// Sign up with encrypted password
 server.post('/signup', (req, res) => {
 	let error = ""
   var data = req.body
@@ -75,33 +95,49 @@ server.post('/signup', (req, res) => {
 		}
 });
 
+// Sign in with hash validation and JWT tokens and error handling
 server.post('/signin', (req, res) => {
 	let error = ""
 	let user = req.body
 	let hash = ""
 	let currentUser = user.username;
-
 	User.find({ username: user.username }, function (mongoError, mongoRes) {
-		if (mongoRes[0] == undefined ) {
+		foundUser = mongoRes[0]
+		if (foundUser == undefined ) {
 			res.render('signin.ejs', { error: "No such user"})
 			return
 		}
-		hash = mongoRes[0].password
+		hash = foundUser.password
 		if (mongoError) {
 				res.render('signin.ejs', { error: "Looks like the database is shitting it self, well dam"})
 		}
 		bcrypt.compare(user.password, hash, function(bcryptError, bcryptRes) {
 			if (bcryptRes) {
-				res.render('signin.ejs', { error: "Boom boi, Login is all good!"})
-				// YES BRAH, This is where Sessions magic happens
-				GBBOMB()
+				console.log("Login sucessfull");
+				console.log( foundUser );
+				jwt.sign({ user:foundUser }, 'secretKey123', ( err, token ) => {
+					res.json({
+						token
+					})
+				})
+				const verifyToken = function (req, res, next) {
+					const bearerHeader = request.headers['authorization']
+					if (typeof bearerHeader !== 'undefined') {
+					const bearer = bearerHeader.split(' ');
+					const bearerToken = bearer[1]
+					req.token = bearerToken
+					next()
+					res.redirect('/home')
+
+					} else {
+						res.sendStatus(403)
+					}
+				}
 			} else {
 				res.render('signin.ejs', { error: "Password is incorrect"})
 			}
 		});
-
 	});
-
 })
 
 
