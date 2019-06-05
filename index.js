@@ -51,7 +51,7 @@ server.get('/', (req, res) => {
   res.render('home.ejs');
 });
 server.get('/signin', (req, res) => {
-  res.render('signin.ejs');
+  res.render('signin.ejs', { error: "" });
 });
 server.get('/playdemos', (req, res) => {
   res.render('playdemos.ejs');
@@ -78,33 +78,30 @@ server.post('/signup', (req, res) => {
 server.post('/signin', (req, res) => {
 	let error = ""
 	let user = req.body
-	console.log( user );
-	let enteredPassword = user.password
-	let hash = "Hash not updated"
-	console.log( "1. The entered username is " + user.username );
+	let hash = ""
+	let currentUser = user.username;
 
-  // var userData = req.body
-	User.find({ username: "Sam"}, function (err, res) {
-		let foundUser = res[0]
-		console.log( "2. User found");
-		console.log( foundUser );
-		if (error) {
-			console.log("2. There was an error:");
-			console.log( err );
+	User.find({ username: user.username }, function (mongoError, mongoRes) {
+		if (mongoRes[0] == undefined ) {
+			res.render('signin.ejs', { error: "No such user"})
+			return
 		}
-		hash = res[0].password
-		console.log("3. The saved hash from the DB " + hash );
-		console.log("3. The prehashed enteredpassword is " + enteredPassword );
-		bcrypt.compare(enteredPassword, hash, function(err, res) {
-			if (res) {
-				console.log(" We have a mother fucking login boiz");
+		hash = mongoRes[0].password
+		if (mongoError) {
+				res.render('signin.ejs', { error: "Looks like the database is shitting it self, well dam"})
+		}
+		bcrypt.compare(user.password, hash, function(bcryptError, bcryptRes) {
+			if (bcryptRes) {
+				res.render('signin.ejs', { error: "Boom boi, Login is all good!"})
+				// YES BRAH, This is where Sessions magic happens
+				GBBOMB()
 			} else {
-				console.log(" Doesnt match man");
+				res.render('signin.ejs', { error: "Password is incorrect"})
 			}
 		});
 
 	});
-	// res.render('signin.ejs', { error })
+
 })
 
 
