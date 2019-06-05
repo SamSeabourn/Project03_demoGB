@@ -1,8 +1,9 @@
 const express = require('express');
 const ejs = require('ejs');
+const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const axios = require('axios');
-var session = require('express-session');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const MONGO_CREDENTUALS = require('./keysAndThings.js');
@@ -76,13 +77,31 @@ server.post('/signup', (req, res) => {
 
 server.post('/signin', (req, res) => {
 	let error = ""
+	let user = req.body
+	let enteredPassword = user.password
+	let hash = "Hash not updated"
+	console.log( "1. The entered username is " + user.username );
+
   // var userData = req.body
-	User.find({ username: 'Sam' }, function (err, res) {
+	User.find({ username: "Sam"}, function (err, res) {
+		let foundUser = res[0]
+		console.log( "2. User found");
+		console.log( foundUser );
 		if (error) {
-			console.log("There was an error:");
+			console.log("2. There was an error:");
 			console.log( err );
 		}
-			console.log( res[0] )
+		hash = res[0].password
+		console.log("3. The saved hash from the DB " + hash );
+		console.log("3. The prehashed enteredpassword is " + enteredPassword );
+	});
+		bcrypt.compare(enteredPassword, hash, function(err, res) {
+			console.log( enteredPassword );
+			console.log( hash );
+			if (res) {
+				console.log(" We have a mother fucking login boiz");
+			}
+
 	});
 	// res.render('signin.ejs', { error })
 })
