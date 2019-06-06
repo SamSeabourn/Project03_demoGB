@@ -6,11 +6,8 @@ const axios = require('axios');
 const expressSession = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const CREDENTUALS = require('./keysAndThings.js')  //CREDENTUALS.JWTSECRET
-// const expressValidator = require('express-validatior')
-// const jwtVerifier = require('express-jwt')
-// var jwt = require('jsonwebtoken');
-const secret = "ThisIsASecretKey"
+const CREDENTUALS = require('./keysAndThings.js') 
+const secret = CREDENTUALS.KEY
 const server = express();
 
 
