@@ -4,19 +4,28 @@ $magenta= #c92c61;
 $yellow= #f0e932;
 $gb-grey = #9304a0; */
 
+* {
+	border: 1px dashed magenta;
+	font-family: 'Rubik', sans-serif;
+  /* font-family: 'Noto Sans JP', sans-serif; */
+	color: white;
+}
+
 #mainCanvas{
   width: auto;
   height: 222px;
 }
 
-.gameboyContainer{
-  width: 30%;
+.gameboyContainer {
+    margin: 9vh auto;
+    width: 520px;
+    height: 821px;
 }
 
 body {
   margin: 0px;
   padding: 0px;
-  height: 100vh;
+  height: 100%;
   border: 1px dashed magenta;
   background: #602b8b;
   background: linear-gradient(to bottom,  #602b8b 0%,#602b8b 33%,#000000 100%);
@@ -211,6 +220,35 @@ h1 {
   border-radius: 100%;
   background-color: #031921;
 }
+
+
+/* _ _   __  _ _    ___
+  | | | /  \| | |  | __|_ _ _ _ ___ _ _
+  |_  _| () |_  _| | _|| '_| '_/ _ \ '_|
+    |_| \__/  |_|  |___|_| |_| \___/_|  */
+.errorScreen h1 {
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 45vh;
+}
+
+.sideMenu {
+  padding-top: 13em;
+  height: 120vh;
+  width: 400px;
+  position: absolute;
+  margin-left: 6em;
+  background-color: rgba(0,0,0,0.4);
+}
+.sideMenu a {
+  margin-left: 0.75em;
+  margin-top: 15px;
+  display: block;
+  font-size: 40px;
+}
+
+
 /* @-webkit-keyframes rotation {
   from {
     -webkit-transform: rotate(0deg);
@@ -357,7 +395,7 @@ body {
   perspective: 1000px;
   transition: transform 10s ease;
 }
-.cube {
+/* .cube {
   position: absolute;
   left: 0;
   right: 0;
@@ -368,17 +406,20 @@ body {
   transform-style: preserve-3d;
   transform-origin: 50% 50%;
   animation: rotate 10s infinite;
+} */
+
+
+.cube {
+    position: absolute;
+    margin: 0 auto;
+    top: 50%;
+		/* Turn the lower 4 lines on */
+    /* transition: transform 6s ease;
+    transform-style: preserve-3d;
+    transform-origin: 50% 50%;
+    animation: rotate 10s infinite; */
 }
-.cube:hover .pwbtn {
-  background: darkred;
-  box-shadow: inset 1px 1px 5px 0px rgba(0, 0, 0, 0.50);
-}
-.cube:hover .nintendo {
-  top: 30px;
-}
-.cube:hover .byrune {
-  top: 40px;
-}
+
 .side {
   position: absolute;
   border: 1px solid rgba(0, 0, 0, 0.05);

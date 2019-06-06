@@ -48,6 +48,8 @@ server.use(expressSession({
 }));
 
 ///////// ROUTES /////////
+
+
 // Home Page
 server.get('/home', (req, res) => {
 	console.log( req.session.success );
@@ -56,9 +58,6 @@ server.get('/home', (req, res) => {
 	} else {
 		res.render('pleaselogin.ejs')
 	}
-
-  // res.render('home.ejs', { success: req.session.success , errors: req.session.errors });
-	// req.session.errors= null;
 });
 
 //Sign Up
@@ -120,7 +119,6 @@ server.post('/signin', (req, res) => {
 		}
 		bcrypt.compare(user.password, hash, function(bcryptError, bcryptRes) {
 			if (bcryptRes) {
-				console.log(" LOGIN SUCCESSFUL ");
 				req.session.success = true;
 				res.redirect('/home')
 			} else {
@@ -131,6 +129,12 @@ server.post('/signin', (req, res) => {
 	});
 })
 
+
+
+///////// 404'd /////////
+server.get('/*', (req, res) => {
+  res.render('404.ejs', { error: "" });
+});
 
 ///////// SERVER PORT //////////
 server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }`));
