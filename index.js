@@ -3,56 +3,62 @@ const ejs = require('ejs');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const axios = require('axios');
-const session = require('express-session');
+const expressSession = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const MONGO_CREDENTUALS = require('./keysAndThings.js');
-const jwt = require('jsonwebtoken')
+const CREDENTUALS = require('./keysAndThings.js')  //CREDENTUALS.JWTSECRET
+// const expressValidator = require('express-validatior')
+// const jwtVerifier = require('express-jwt')
+// var jwt = require('jsonwebtoken');
+const secret = "ThisIsASecretKey"
+const server = express();
+
+
 
 ///////// PORT NUMBER /////////
 const PORT = process.env.PORT || 1337
 
 global.User = require('./models/schema')
 
+
+
 //////// MONGOOSE CONFIG /////////
 mongoose.Promise = global.Promise;
-mongoose.connect( MONGO_CREDENTUALS.KEY, { useNewUrlParser: true , useCreateIndex: true } );
+mongoose.connect( CREDENTUALS.KEY, { useNewUrlParser: true , useCreateIndex: true } );
 mongoose.set('useFindAndModify', false );
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {});
 
-///////// VIEW SETUP /////////
-const server = express();
+///////// SERVER CONFIG /////////
+
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
+// server.use(expressValidator());
 server.set('view-engine', 'ejs');
 server.use(express.static('public'));
+server.use(expressSession({ secret: secret , saveUninitialized: false , resave: false }))
+// , saveUninitialized: false , resave: false
 
-///////// SESSIONS CONFIG /////////
-server.use(session({
-  secret: 'HotboisAndGamerGirls',
+//////// SESSIONS ////////
+server.use(expressSession({
+  secret: 'work hard',
   resave: true,
   saveUninitialized: false
 }));
 
-
 ///////// ROUTES /////////
-
 // Home Page
 server.get('/home', (req, res) => {
-	jwt.verify(req.token, 'secretKey123', (err, authData) => {
-		if(err) {
-			res.sendStatus(403)
-		} else {
-			res.json({
-				authData
-			})
-			res.render('home.ejs');;
+	console.log( req.session.success );
+	if (req.session.success) {
+		res.render('home.ejs')
+	} else {
+		res.render('pleaselogin.ejs')
+	}
 
-		}
-	})
-  res.render('home.ejs');;
+  // res.render('home.ejs', { success: req.session.success , errors: req.session.errors });
+	// req.session.errors= null;
 });
 
 //Sign Up
@@ -87,9 +93,9 @@ server.post('/signup', (req, res) => {
 					res.render("signup.ejs", {error: "This username or email is already in use"})
 					return
 	      } else {
-	        console.log("data following user was added to the collection");
-					console.log( data );
-					res.redirect('/home')
+	        // console.log("data following user was added to the collection");
+					// console.log( data );
+					res.redirect('/signin')
 	      }
 	    })
 		}
@@ -109,31 +115,16 @@ server.post('/signin', (req, res) => {
 		}
 		hash = foundUser.password
 		if (mongoError) {
-				res.render('signin.ejs', { error: "Looks like the database is shitting it self, well dam"})
+				res.render('signin.ejs', { error: "Looks like the database is crapping it self, well dam"})
+				return
 		}
 		bcrypt.compare(user.password, hash, function(bcryptError, bcryptRes) {
 			if (bcryptRes) {
-				console.log("Login sucessfull");
-				console.log( foundUser );
-				jwt.sign({ user:foundUser }, 'secretKey123', ( err, token ) => {
-					res.json({
-						token
-					})
-				})
-				const verifyToken = function (req, res, next) {
-					const bearerHeader = request.headers['authorization']
-					if (typeof bearerHeader !== 'undefined') {
-					const bearer = bearerHeader.split(' ');
-					const bearerToken = bearer[1]
-					req.token = bearerToken
-					next()
-					res.redirect('/home')
-
-					} else {
-						res.sendStatus(403)
-					}
-				}
+				console.log(" LOGIN SUCCESSFUL ");
+				req.session.success = true;
+				res.redirect('/home')
 			} else {
+				req.session.success = false;
 				res.render('signin.ejs', { error: "Password is incorrect"})
 			}
 		});
@@ -141,10 +132,19 @@ server.post('/signin', (req, res) => {
 })
 
 
-
-
-///////// SERVER SETUP //////////
+///////// SERVER PORT //////////
 server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }`));
+
+
+
+
+
+
+
+
+
+
+
 
 ///////// CODE GRAVE YARD //////////
 
@@ -203,7 +203,35 @@ server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }
 //     }
 //   })
 //
+//////////////////
+// console.log("Login sucessfull");
+// console.log( foundUser );
+// jwt.sign({ foundUser }, secret, ( err, token ) => {
+// 	console.log( "The token is " + token );
+// 	res.json({
+// 		token
+// 	})
+// })
+// CREATES A JWT TOKEN
+// const createToken = () => {
+// 	let token = jwt.sign({ foundUser }, secret )
+// 	console.log("The token is");
+// 	console.log( token );
+// 	return token
+// }
 
+// Token Verifier
+// const verifyToken = function (req, res, next) {
+// 	const bearerHeader = request.headers['authorization']
+// 	if (typeof bearerHeader !== 'undefined') {
+// 	const bearer = bearerHeader.split(' ');
+// 	const bearerToken = bearer[1]
+// 	req.token = bearerToken
+// 	next()
+// 	} else {
+// 		res.sendStatus(403)
+// 	}
+// }
 
 
 
