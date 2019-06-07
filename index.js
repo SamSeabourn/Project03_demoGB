@@ -6,10 +6,10 @@ const axios = require('axios');
 const expressSession = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const CREDENTUALS = require('./keysAndThings.js')
-const secret = CREDENTUALS.KEY
+const SECRET = require('./keysAndThings.js')
 const server = express();
-global.User = require('./models/schema')
+global.User = require('./models/userschema')
+global.Game = require('./models/gameschema')
 
 ///////// PORT NUMBER /////////
 
@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 1337
 //////// MONGOOSE CONFIG /////////
 
 mongoose.Promise = global.Promise;
-mongoose.connect( CREDENTUALS.KEY, { useNewUrlParser: true , useCreateIndex: true } );
+mongoose.connect( SECRET.KEY, { useNewUrlParser: true , useCreateIndex: true } );
 mongoose.set('useFindAndModify', false );
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -30,18 +30,18 @@ server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 server.set('view-engine', 'ejs');
 server.use(express.static('public'));
-server.use(expressSession({ secret: secret , saveUninitialized: false , resave: false }))
+server.use(expressSession({ secret: SECRET.KEY , saveUninitialized: false , resave: false }))
 
 //////// SESSIONS CONFIG ////////
 
 server.use(expressSession({
-  secret: 'work hard',
+  secret: SECRET.KEY ,
   resave: true,
-  saveUninitialized: false
+  saveUninitialized: false,
+	maxAge: 60 * 60 * 24
 }));
 
 ///////// ROUTES /////////
-
 
 // Home Page
 server.get('/home', (req, res) => {
@@ -79,17 +79,23 @@ server.get('/publish', (req, res) => {
 // Publish a demo
 server.post('/publish', (req, res) => {
 	let data = req.body;
-	if (!req.session.success) {
-		res.render('pleaselogin.ejs')
-	} else {
+	// if (req.session.success) {
+	// 	res.render('pleaselogin.ejs')
+	// } else {
 			data.score = 0
 		  data.gamefile = "GAMEFILE GOES HERE"
 			data.coverArt = "http://fillmurray.com/150/150"
 			data.copiesSold = 0
 			data.creator = req.session.username
-		  res.render('publish.ejs', { error: "" });
-			 User.create( data , function( error ,data ){)
-		}
+			Game.create( data , function( error ,data ){
+					if (error) {
+						res.render("publish.ejs", {error: "Check console for error"})
+						console.log( error );
+					} else {
+						res.render("publish.ejs", {error: "Upload complete"})
+					}
+				})
+		// }
 });
 
 // Sign up with encrypted password
