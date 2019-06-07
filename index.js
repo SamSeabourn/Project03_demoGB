@@ -6,20 +6,17 @@ const axios = require('axios');
 const expressSession = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const CREDENTUALS = require('./keysAndThings.js') 
+const CREDENTUALS = require('./keysAndThings.js')
 const secret = CREDENTUALS.KEY
 const server = express();
-
-
-
-///////// PORT NUMBER /////////
-const PORT = process.env.PORT || 1337
-
 global.User = require('./models/schema')
 
+///////// PORT NUMBER /////////
 
+const PORT = process.env.PORT || 1337
 
 //////// MONGOOSE CONFIG /////////
+
 mongoose.Promise = global.Promise;
 mongoose.connect( CREDENTUALS.KEY, { useNewUrlParser: true , useCreateIndex: true } );
 mongoose.set('useFindAndModify', false );
@@ -31,13 +28,12 @@ db.once('open', function() {});
 
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
-// server.use(expressValidator());
 server.set('view-engine', 'ejs');
 server.use(express.static('public'));
 server.use(expressSession({ secret: secret , saveUninitialized: false , resave: false }))
-// , saveUninitialized: false , resave: false
 
-//////// SESSIONS ////////
+//////// SESSIONS CONFIG ////////
+
 server.use(expressSession({
   secret: 'work hard',
   resave: true,
@@ -49,11 +45,10 @@ server.use(expressSession({
 
 // Home Page
 server.get('/home', (req, res) => {
-	console.log( req.session.success );
-	if (req.session.success) {
-		res.render('home.ejs')
-	} else {
+	if (!req.session.success) {
 		res.render('pleaselogin.ejs')
+	} else {
+		res.render('home.ejs')
 	}
 });
 
@@ -73,14 +68,34 @@ server.get('/signin', (req, res) => {
 });
 
 // Play demos
-server.get('/playdemos', (req, res) => {
-  res.render('playdemos.ejs');
+server.get('/play', (req, res) => {
+  res.render('play.ejs');
+});
+//
+server.get('/publish', (req, res) => {
+  res.render('publish.ejs', { error: "" });
+});
+
+// Publish a demo
+server.post('/publish', (req, res) => {
+	let data = req.body;
+	if (!req.session.success) {
+		res.render('pleaselogin.ejs')
+	} else {
+			data.score = 0
+		  data.gamefile = "GAMEFILE GOES HERE"
+			data.coverArt = "http://fillmurray.com/150/150"
+			data.copiesSold = 0
+			data.creator = req.session.username
+		  res.render('publish.ejs', { error: "" });
+			 User.create( data , function( error ,data ){)
+		}
 });
 
 // Sign up with encrypted password
 server.post('/signup', (req, res) => {
 	let error = ""
-  var data = req.body
+  var data = req.body // Changed this to Let from Var .... May break things but probs not.
 	if (data.password !== data.passwordConf) {
 		res.render('signup.ejs', {error:"Passwords do not match"})
 	} else {
@@ -117,6 +132,7 @@ server.post('/signin', (req, res) => {
 		bcrypt.compare(user.password, hash, function(bcryptError, bcryptRes) {
 			if (bcryptRes) {
 				req.session.success = true;
+				req.session.username = currentUser
 				res.redirect('/home')
 			} else {
 				req.session.success = false;

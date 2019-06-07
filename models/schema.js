@@ -33,10 +33,16 @@ var GameSchema = new mongoose.Schema({
 		score: {
 			type: Number
 		},
+		gamefile: {
+			type: String
+		},
+		coverArt: {
+			type: String
+		},
 		copiesSold:{
 			type: Number
 		},
-		owner: {
+		creator: {
 			type: String
 		}
 })
