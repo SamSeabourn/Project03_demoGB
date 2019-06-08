@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt');
 var GameSchema = new mongoose.Schema({
 		title: {
 			type: String,
-			unique: true,
+			unique: false,
 		},
 		description: {
 			type: String,
-			required: true,
+			required: false,
 		},
 		score: {
 			type: Number
