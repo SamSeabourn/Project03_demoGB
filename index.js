@@ -1,4 +1,7 @@
 const express = require('express');
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 const ejs = require('ejs');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
@@ -8,6 +11,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const SECRET = require('./keysAndThings.js')
 const server = express();
+const fileUpload = require('express-fileupload')
+var MongoClient = require('mongodb').MongoClient;
+
 global.User = require('./models/userschema')
 global.Game = require('./models/gameschema')
 
@@ -30,6 +36,7 @@ server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 server.set('view-engine', 'ejs');
 server.use(express.static('public'));
+// server.use(fileUpload());
 server.use(expressSession({ secret: SECRET.KEY , saveUninitialized: false , resave: false }))
 
 //////// SESSIONS CONFIG ////////
@@ -40,6 +47,36 @@ server.use(expressSession({
   saveUninitialized: false,
 	maxAge: 60 * 60 * 24
 }));
+
+///////// CLOUDINARY CONFIG ////////
+//
+// const CLOUD_NAME = "dpl1ntt00"
+// const API_KEY = "914122464552653"
+// const API_SECRET = "u3WPB2RqNcDBmkiN7Mc5v-dOpV0"
+// const parser = multer({ storage: storage });
+// cloudinary.config({
+//   cloud_name: 'dpl1ntt00',
+//   api_key: '268751858638495',
+//   api_secret: '8rJh9MIPVL0CxwQ0KwfdU2lxBTE'
+// });
+//
+// const storage = cloudinaryStorage({
+// 	cloudinary: cloudinary,
+// 	folder: "demo",
+// 	allowedFormats: ["jpg", "png", "gb"],
+// 	transformation: [{ width: 500, height: 500, crop: "limit" }]});
+
+
+MongoClient.connect(‘mongodb://’+username+’:’+password+’@localhost/file_db’, function(err, db){
+  if(err){
+    console.log("Please check you db connection parameters");
+  }else{
+    console.log("Connection success");
+    // here we are going to write code for file
+  }
+});
+
+
 
 ///////// ROUTES /////////
 
@@ -78,15 +115,16 @@ server.get('/publish', (req, res) => {
 
 // Publish a demo
 server.post('/publish', (req, res) => {
-	let data = req.body;
 	// if (req.session.success) {
 	// 	res.render('pleaselogin.ejs')
 	// } else {
 			data.score = 0
-		  data.gamefile = "GAMEFILE GOES HERE"
+		  data.gamefile = "Gamefile URL goes here"
 			data.coverArt = "http://fillmurray.com/150/150"
 			data.copiesSold = 0
 			data.creator = req.session.username
+			console.log( "The following is going to be uploaded");
+			console.log( data );
 			Game.create( data , function( error ,data ){
 					if (error) {
 						res.render("publish.ejs", {error: "Check console for error"})

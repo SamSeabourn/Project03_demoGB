@@ -21,47 +21,6 @@ var UserSchema = new mongoose.Schema({
     currentCash: Number,
 });
 
-var GameSchema = new mongoose.Schema({
-		title: {
-			type: String,
-			unique: true,
-		},
-		description: {
-			type: String,
-			required: true,
-		},
-		score: {
-			type: Number
-		},
-		gamefile: {
-			type: String
-		},
-		coverArt: {
-			type: String
-		},
-		copiesSold:{
-			type: Number
-		},
-		creator: {
-			type: String
-		}
-})
-
-
-
-// This ensures the password is encrypted before post request
-UserSchema.pre('save', function (next) {
-  let user = this;
-  bcrypt.hash(user.password, 10, function (err, hash){
-    if (err) {
-      return next("Hashing error:" + err);
-    }
-    user.password = hash;
-    next();
-  })
-});
-
 
 const User = mongoose.model('User', UserSchema);
-const Game = mongoose.model('Game', GameSchema);
-module.exports = User, Game
+module.exports = User
