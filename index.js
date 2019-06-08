@@ -1,6 +1,5 @@
 const express = require('express');
-const multer = require("multer");
-const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 const cloudinaryStorage = require("multer-storage-cloudinary");
 const ejs = require('ejs');
 const bcrypt = require('bcrypt');
@@ -12,6 +11,15 @@ const bodyParser = require('body-parser');
 const SECRET = require('./keysAndThings.js')
 const server = express();
 const fileUpload = require('express-fileupload')
+const multer = require('multer');
+// const storage = multer.diskStorage({
+//   filename: function(req, file, callback) {
+//     callback(null, Date.now() + file.originalname);
+//   }
+// });
+//
+// const upload = multer({ storage: storage })
+
 global.User = require('./models/userschema')
 global.Game = require('./models/gameschema')
 
@@ -58,11 +66,11 @@ cloudinary.config({
   api_secret: '8rJh9MIPVL0CxwQ0KwfdU2lxBTE'
 });
 
-const storage = cloudinaryStorage({
-	cloudinary: cloudinary,
-	folder: "demo",
-	allowedFormats: ["jpg", "png", "gb"],
-	transformation: [{ width: 500, height: 500, crop: "limit" }]});
+// const storage = cloudinaryStorage({
+// 	cloudinary: cloudinary,
+// 	folder: "demo",
+// 	allowedFormats: ["jpg", "png", "gb"],
+// 	transformation: [{ width: 500, height: 500, crop: "limit" }]});
 
 
 
@@ -103,9 +111,13 @@ server.get('/publish', (req, res) => {
 });
 
 // Publish a demo
-server.post('/publish', (req, res) => {
+server.post('/publish', (req, res, next) => {
+	cloudinary.v2.uploader.upload("./Vegeta.jpg",function(error, result) {console.log(result, error); });
+	console.log( req );
 	 let data = req.body
-	 console.log( data.gamefile );
+	 let file = req.files
+	 console.log( req.files.gamefile );
+
 	// if (req.session.success) {
 	// 	res.render('pleaselogin.ejs')
 	// } else {
