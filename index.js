@@ -12,16 +12,36 @@ const SECRET = require('./keysAndThings.js')
 const server = express();
 const fileUpload = require('express-fileupload')
 const multer = require('multer');
-// const storage = multer.diskStorage({
-//   filename: function(req, file, callback) {
-//     callback(null, Date.now() + file.originalname);
-//   }
-// });
-//
-// const upload = multer({ storage: storage })
+
 
 global.User = require('./models/userschema')
 global.Game = require('./models/gameschema')
+
+
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|gb)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+const CLOUDINARY_API_KEY = 268751858638495
+const CLOUDINARY_API_SECRET = "8rJh9MIPVL0CxwQ0KwfdU2lxBTE"
+
+cloudinary.config({
+  cloud_name: 'dpl1ntt00',
+  api_key: CLOUDINARY_API_KEY,
+  api_secret: CLOUDINARY_API_SECRET
+});
+
+
 
 ///////// PORT NUMBER /////////
 
@@ -56,22 +76,12 @@ server.use(expressSession({
 
 ///////// CLOUDINARY CONFIG ////////
 //
-// const CLOUD_NAME = "dpl1ntt00"
-// const API_KEY = "914122464552653"
-// const API_SECRET = "u3WPB2RqNcDBmkiN7Mc5v-dOpV0"
-// const parser = multer({ storage: storage });
-cloudinary.config({
-  cloud_name: 'dpl1ntt00',
-  api_key: '268751858638495',
-  api_secret: '8rJh9MIPVL0CxwQ0KwfdU2lxBTE'
-});
 
-// const storage = cloudinaryStorage({
-// 	cloudinary: cloudinary,
-// 	folder: "demo",
-// 	allowedFormats: ["jpg", "png", "gb"],
-// 	transformation: [{ width: 500, height: 500, crop: "limit" }]});
-
+// cloudinary.config({
+//   cloud_name: 'dpl1ntt00',
+//   api_key: '268751858638495',
+//   api_secret: '8rJh9MIPVL0CxwQ0KwfdU2lxBTE'
+// });
 
 
 
@@ -111,7 +121,16 @@ server.get('/publish', (req, res) => {
 });
 
 // Publish a demo
-server.post('/publish', (req, res, next) => {
+server.post('/publish',  upload.single('gamefile'), (req, res, next) => {
+	console.log( req.file );
+	cloudinary.uploader.upload(req.file.path, function(result) {
+			console.log( result );
+			// req.body.campground.image = result.secure_url;
+	  // add author to campground
+	});
+
+
+
 	// console.log( req );
 	//  let data = req.body
 	//  let file = req.files
@@ -297,7 +316,25 @@ server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }
 // 		res.sendStatus(403)
 // 	}
 // }
+// const storage = multer.diskStorage({
+//   filename: function(req, file, callback) {
+//     callback(null, Date.now() + file.originalname);
+//   }
+// });
+//
+// const upload = multer({ storage: storage })
 
+// const storage = cloudinaryStorage({
+// 	cloudinary: cloudinary,
+// 	folder: "demo",
+// 	allowedFormats: ["jpg", "png", "gb"],
+// 	transformation: [{ width: 500, height: 500, crop: "limit" }]});
+
+
+// const CLOUD_NAME = "dpl1ntt00"
+// const API_KEY = "914122464552653"
+// const API_SECRET = "u3WPB2RqNcDBmkiN7Mc5v-dOpV0"
+// const parser = multer({ storage: storage });
 
 
 
