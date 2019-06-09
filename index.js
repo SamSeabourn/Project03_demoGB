@@ -112,11 +112,10 @@ server.get('/publish', (req, res) => {
 
 // Publish a demo
 server.post('/publish', (req, res, next) => {
-	cloudinary.v2.uploader.upload("./Vegeta.jpg",function(error, result) {console.log(result, error); });
-	console.log( req );
-	 let data = req.body
-	 let file = req.files
-	 console.log( req.files.gamefile );
+	// console.log( req );
+	//  let data = req.body
+	//  let file = req.files
+	//  console.log( req.files.gamefile );
 
 	// if (req.session.success) {
 	// 	res.render('pleaselogin.ejs')
