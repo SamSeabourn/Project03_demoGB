@@ -23,14 +23,14 @@ var storage = multer.diskStorage({
     callback(null, Date.now() + file.originalname);
   }
 });
-var imageFilter = function (req, file, cb) {
-    // accept image files only
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|gb)$/i)) {
-        return cb(new Error('Only image files are allowed!'), false);
-    }
-    cb(null, true);
-};
-var upload = multer({ storage: storage, fileFilter: imageFilter})
+// var imageFilter = function (req, file, cb) {
+//     // accept image files only
+//     if (!file.originalname.match(/\.(jpg|jpeg|png|gif|gb)$/i)) {
+//         return cb(new Error('Only image files are allowed!'), false);
+//     }
+//     cb(null, true);
+// };
+var upload = multer({ storage: storage })
 
 const CLOUDINARY_API_KEY = 268751858638495
 const CLOUDINARY_API_SECRET = "8rJh9MIPVL0CxwQ0KwfdU2lxBTE"
@@ -121,12 +121,11 @@ server.get('/publish', (req, res) => {
 });
 
 // Publish a demo
-server.post('/publish',  upload.single('gamefile'), (req, res, next) => {
-	console.log( req.file );
+server.post('/publish',  upload.single('gamefile', { "resource_type": "auto" }), (req, res, next) => {
+	console.log( req.body );
 	cloudinary.uploader.upload(req.file.path, function(result) {
-			console.log( result );
-			// req.body.campground.image = result.secure_url;
-	  // add author to campground
+		console.log( req.file.path );
+		console.log( result ); // logs outs { message: 'Invalid image file', http_code: 400 }
 	});
 
 
