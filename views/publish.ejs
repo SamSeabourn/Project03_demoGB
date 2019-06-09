@@ -8,15 +8,15 @@
   </div>
 	<div>
 		<label for="file-upload"> UPLOAD GAME FILE </label>
-		<input type="file" id="file-upload"> <br>
-		<label for="image-upload"> UPLOAD COVER ART</label>
-		<input type="file" id="image-upload" />
+		<input type="file" id="file-upload" accept=".gb"> <br>
+		<label for="image-upload" accept=".gb"> UPLOAD COVER ART</label>
+		<input type="file" id=accept="image/png, image/jpeg, image/gif" />
 	</div>
 
 
 		<form action="/publish/" method="POST">
-			<input type="text" placeholder="Game Title" name="title"> <br>
-			<input type="text" value="Description...." name="description"> <br />
+			<input type="text" placeholder="Game Title" name="title" required> <br>
+			<input type="text" value="Description...." name="description" required> <br />
 
 			<input type="hidden" id="lol-this-is-janky" name="gamefile">
 			<input type="hidden" id="lol-this-is-janky2" name="coverArt">

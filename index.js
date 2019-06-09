@@ -89,11 +89,8 @@ server.use(expressSession({
 
 // Home Page
 server.get('/home', (req, res) => {
-	if (!req.session.success) {
-		res.render('pleaselogin.ejs')
-	} else {
+	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 		res.render('home.ejs')
-	}
 });
 
 //Sign Up
@@ -113,46 +110,43 @@ server.get('/signin', (req, res) => {
 
 // Play demos
 server.get('/play', (req, res) => {
+	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
   res.render('play.ejs');
 });
-//
+
+// Publish Game Page
 server.get('/publish', (req, res) => {
-  res.render('publish.ejs', { error: "" , hidden: "hidden"});
+	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+  res.render('publish.ejs', { error: "" });
 });
 
 // Publish a demo
 server.post('/publish', (req, res ) => {
-
-	 let pageData = req.body
-	 // console.log( pageData );
-
-	// if (req.session.success) {
-	// 	res.render('pleaselogin.ejs')
-	// } else {
-			let data = {
-				title: pageData.title,
-				score: 0,
-				description: pageData.description,
-				gamefile: pageData.gamefile,
-				coverArt: pageData.coverArt,
-				copiesSold: 0,
-				creator: req.session.username
-			}
-			console.log( data );
-			Game.create( data , function( error ,data ){
-					if (error) {
-						res.render("publish.ejs", {error: "Check console for error"})
-						console.log( error );
-					} else {
-						res.render("publish.ejs", {error: "Upload complete"})
-					}
-				})
+	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	let pageData = req.body
+	let data = {
+		title: pageData.title,
+		score: 0,
+		description: pageData.description,
+		gamefile: pageData.gamefile,
+		coverArt: pageData.coverArt,
+		copiesSold: 0,
+		creator: req.session.username
+	}
+	Game.create( data , function( error ,data ){
+		if (error.code === 11000) {
+			res.render("publish.ejs", {error: `A game with the name ${ data.title } has already been made, please reupload with a different title` })
+			console.log( error );
+		} else {
+			res.render("publish.ejs", {error: "Upload complete"} )
+		}
+	})
 });
 
 // Sign up with encrypted password
 server.post('/signup', (req, res) => {
 	let error = ""
-  var data = req.body // Changed this to Let from Var .... May break things but probs not.
+  const data = req.body // Changed this to Let from Var .... May break things but probs not.
 	if (data.password !== data.passwordConf) {
 		res.render('signup.ejs', {error:"Passwords do not match"})
 	} else {
@@ -161,8 +155,6 @@ server.post('/signup', (req, res) => {
 					res.render("signup.ejs", {error: "This username or email is already in use"})
 					return
 	      } else {
-	        // console.log("data following user was added to the collection");
-					// console.log( data );
 					res.redirect('/signin')
 	      }
 	    })
@@ -208,6 +200,8 @@ server.get('/*', (req, res) => {
 
 ///////// SERVER PORT //////////
 server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }`));
+
+///////// SERVER FUNCTIONS /////////
 
 
 
