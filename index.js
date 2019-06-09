@@ -121,10 +121,9 @@ server.get('/publish', (req, res) => {
 });
 
 // Publish a demo
-server.post('/publish',  upload.single('gamefile', { "resource_type": "auto" }), (req, res, next) => {
-	console.log( req.body );
+server.post('/publish',  upload.single('gamefile', { "resource_type": "raw" }), (req, res, next) => {
+	console.log( req.body.gamefile );
 	cloudinary.uploader.upload(req.file.path, function(result) {
-		console.log( req.file.path );
 		console.log( result ); // logs outs { message: 'Invalid image file', http_code: 400 }
 	});
 

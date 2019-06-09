@@ -8,14 +8,10 @@ let fileUpload = document.getElementById('file-upload')
 
 fileUpload.addEventListener('change', function(event) {
 	var file = event.target.files[0]
-	console.log( file );
-	console.log( "File looks lile this ");
 	var formData = new FormData();
-	console.log( formData );
 	formData.append('file',file);
-	console.log( formData );
 	formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET );
-	console.log( formData );
+
 
 	axios({
 		url: CLOUDINARY_URL,
@@ -26,9 +22,13 @@ fileUpload.addEventListener('change', function(event) {
 		data: formData
 	}).then( function(res) {
 		console.log( res.data.secure_url );
+		let dataSend = res.data.secure_url
+		document.getElementById('lol').value = dataSend
 
 	}).catch(function(err) {
 		console.log( "Error ");
 		console.log( err );
 	})
+
+
 })

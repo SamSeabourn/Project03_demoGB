@@ -7,6 +7,7 @@
     <h1> Publish Demos </h1>
   </div>
 	<div>
+
 		<form action="/publish/" method="POST" enctype="multipart/form-data">
 			<input type="text" placeholder="Game Title" name="title">
 
@@ -14,13 +15,17 @@
 
 			<label for="file-upload"> UPLOAD GAME FILE </label>
 			<input type="file" id="file-upload" name="gamefile">
-
+			<input type="" id="lol" >
 
 
 			<span class="errorZone"> <%= error %> </span>
 			<br/>
+
 			<button type="submit"/> Publish  </submit>
+
 		</form>
+
+
 	</div>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="/scripts/app.js"></script>
