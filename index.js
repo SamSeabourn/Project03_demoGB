@@ -123,30 +123,30 @@ server.get('/publish', (req, res) => {
 // Publish a demo
 server.post('/publish', (req, res ) => {
 
-	 let data = req.body
-	 console.log( data );
+	 let pageData = req.body
+	 // console.log( pageData );
 
 	// if (req.session.success) {
 	// 	res.render('pleaselogin.ejs')
 	// } else {
-			data = {
+			let data = {
+				title: pageData.title,
 				score: 0,
-				description: data.description,
-				gamefile: data.gamefile,
-				coverArt: data.coverArt,
+				description: pageData.description,
+				gamefile: pageData.gamefile,
+				coverArt: pageData.coverArt,
 				copiesSold: 0,
 				creator: req.session.username
 			}
 			console.log( data );
-			// Game.create( data , function( error ,data ){
-			// 		if (error) {
-			// 			res.render("publish.ejs", {error: "Check console for error"})
-			// 			console.log( error );
-			// 		} else {
-			// 			res.render("publish.ejs", {error: "Upload complete"})
-			// 		}
-			// 	})
-		// }
+			Game.create( data , function( error ,data ){
+					if (error) {
+						res.render("publish.ejs", {error: "Check console for error"})
+						console.log( error );
+					} else {
+						res.render("publish.ejs", {error: "Upload complete"})
+					}
+				})
 });
 
 // Sign up with encrypted password
