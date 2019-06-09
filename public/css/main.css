@@ -11,6 +11,10 @@ $gb-grey = #9304a0; */
 	color: grey;
 }
 
+.hidden{
+	display: none;
+}
+
 html {
 	height: 110vh;
 	width: 100;

@@ -7,21 +7,22 @@
     <h1> Publish Demos </h1>
   </div>
 	<div>
-
-		<form action="/publish/" method="POST" enctype="multipart/form-data">
-			<input type="text" placeholder="Game Title" name="title">
-
-			<textarea type="text" placeholder="Description" name="description"> </textarea>
-
-			<label for="file-upload"> UPLOAD GAME FILE </label>
-			<input type="file" id="file-upload" name="gamefile">
-			<input type="" id="lol" >
+		<label for="file-upload"> UPLOAD GAME FILE </label>
+		<input type="file" id="file-upload"> <br>
+		<label for="image-upload"> UPLOAD COVER ART</label>
+		<input type="file" id="image-upload" />
+	</div>
 
 
+		<form action="/publish/" method="POST">
+			<input type="text" placeholder="Game Title" name="title"> <br>
+			<input type="text" value="Description...." name="description"> <br />
+
+			<input type="hidden" id="lol-this-is-janky" name="gamefile">
+			<input type="hidden" id="lol-this-is-janky2" name="coverArt">
 			<span class="errorZone"> <%= error %> </span>
 			<br/>
-
-			<button type="submit"/> Publish  </submit>
+			<button type="submit" class="hidden" id="submitButton"/> Publish </submit>
 
 		</form>
 

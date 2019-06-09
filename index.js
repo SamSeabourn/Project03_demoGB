@@ -117,35 +117,27 @@ server.get('/play', (req, res) => {
 });
 //
 server.get('/publish', (req, res) => {
-  res.render('publish.ejs', { error: "" });
+  res.render('publish.ejs', { error: "" , hidden: "hidden"});
 });
 
 // Publish a demo
-server.post('/publish',  upload.single('gamefile', { "resource_type": "raw" }), (req, res, next) => {
-	console.log( req.body.gamefile );
-	cloudinary.uploader.upload(req.file.path, function(result) {
-		console.log( result ); // logs outs { message: 'Invalid image file', http_code: 400 }
-	});
+server.post('/publish', (req, res ) => {
 
-
-
-	// console.log( req );
-	//  let data = req.body
-	//  let file = req.files
-	//  console.log( req.files.gamefile );
+	 let data = req.body
+	 console.log( data );
 
 	// if (req.session.success) {
 	// 	res.render('pleaselogin.ejs')
 	// } else {
-
-			// data.score = 0
-			// data.description = "Blah"
-		  // data.gamefile = "Gamefile URL goes here"
-			// data.coverArt = "http://fillmurray.com/150/150"
-			// data.copiesSold = 0
-			// data.creator = req.session.username
-			// console.log( "The following is going to be uploaded");
-			// console.log( data );
+			data = {
+				score: 0,
+				description: data.description,
+				gamefile: data.gamefile,
+				coverArt: data.coverArt,
+				copiesSold: 0,
+				creator: req.session.username
+			}
+			console.log( data );
 			// Game.create( data , function( error ,data ){
 			// 		if (error) {
 			// 			res.render("publish.ejs", {error: "Check console for error"})
