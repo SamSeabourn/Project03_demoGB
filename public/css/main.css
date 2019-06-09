@@ -11,6 +11,10 @@ $gb-grey = #9304a0; */
 	color: grey;
 }
 
+#noop {
+	display: none;
+}
+
 .hidden{
 	display: none;
 }
@@ -53,10 +57,8 @@ body {
 
 
 h1 {
-  color: red;
+  color: magenta;
 }
-
-
 
 
 /* _ _   __  _ _    ___

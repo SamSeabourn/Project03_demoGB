@@ -114,6 +114,23 @@ server.get('/play', (req, res) => {
   res.render('play.ejs');
 });
 
+// My Demos
+server.get('/mydemos', (req, res) => {
+	let dataFromDB =[]
+	Game.find({creator:req.session.username}, function( err, foundData){
+		if(err){
+			console.log("Error");
+			console.log( err );
+		} else {
+			console.log( "Found" );
+			console.log( foundData );
+			dataFromDB = foundData
+		  res.render('mydemos.ejs', {data: dataFromDB} );
+		}
+	})
+  // res.render('mydemos.ejs', { data: dataFromDB });
+});
+
 // Publish Game Page
 server.get('/publish', (req, res) => {
 	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
@@ -141,6 +158,7 @@ server.post('/publish', (req, res ) => {
 			res.render("publish.ejs", {error: "Upload complete"} )
 		}
 	})
+	res.redirect('/mydemos')
 });
 
 // Sign up with encrypted password

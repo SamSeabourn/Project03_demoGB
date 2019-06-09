@@ -26,8 +26,11 @@ fileUpload.addEventListener('change', function(event) {
 		let dataSend = res.data.secure_url
 		document.getElementById('lol-this-is-janky').value = dataSend
 		fileUploadComplete = true
-		uploadComplete()
-
+		console.log("File upload complete");
+		if (imageUploadComplete && fileUploadComplete ) {
+			document.getElementById("submitButton").className = ""
+			console.log( "Go Time");
+		}
 	}).catch(function(err) {
 		console.log( "Error ");
 		console.log( err );
@@ -39,7 +42,6 @@ imageUpload.addEventListener('change', function(event) {
 	var formData = new FormData();
 	formData.append('file',file);
 	formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET );
-
 
 	axios({
 		url: CLOUDINARY_URL,
@@ -53,8 +55,11 @@ imageUpload.addEventListener('change', function(event) {
 		let dataSend = res.data.secure_url
 		document.getElementById('lol-this-is-janky2').value = dataSend
 		imageUploadComplete = true
-		uploadComplete()
-
+		console.log(" Image upload complete");
+		if (imageUploadComplete && fileUploadComplete ) {
+			document.getElementById("submitButton").className = ""
+			console.log( "Go Time");
+		}
 	}).catch(function(err) {
 		console.log( "Error ");
 		console.log( err );
@@ -62,9 +67,9 @@ imageUpload.addEventListener('change', function(event) {
 })
 
 
-const uploadComplete = () => {
-		if (imageUploadComplete && fileUploadComplete ) {
-			document.getElementById("submitButton").className = ""
-			console.log( "Go Time");
-	}
-}
+// const uploadComplete = () => {
+// 		if (imageUploadComplete && fileUploadComplete ) {
+// 			document.getElementById("submitButton").className = ""
+// 			console.log( "Go Time");
+// 	}
+// }
