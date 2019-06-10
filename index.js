@@ -89,11 +89,12 @@ server.use(expressSession({
 
 // Home Page
 server.get('/home', (req, res) => {
+	console.log( req.session.currentGameTitle );
 	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 	res.render('home.ejs',{
+		currentGameTitle: req.session.currentGameTitle,
 		currentGameFile: req.session.currentGamefile,
-	 	currentGameArt: req.session.currentGameArt,
-		currentGameTitle: req.session.currentGameTitle
+	 	currentGameArt: req.session.currentGameArt
 	 })
 });
 
@@ -133,14 +134,33 @@ server.get('/mydemos', (req, res) => {
 		  res.render('mydemos.ejs', {data: dataFromDB} );
 		}
 	})
-  // res.render('mydemos.ejs', { data: dataFromDB });
 });
+
+
+server.post('/playthisgame', (req, res) => {
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	console.log( "post request fired" );
+	gameTitle = req.body.gameTitle
+	console.log( gameTitle );
+	Game.find({creator:req.session.username}, function( err, foundData){
+		if(err){
+			console.log("Error");
+			console.log( err );
+		} else {
+			dataFromDB = foundData
+			res.render('mydemos.ejs', {data: dataFromDB} );
+		}
+	})
+  res.redirect('/home');
+});
+
 
 // Publish Game Page
 server.get('/publish', (req, res) => {
 	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
   res.render('publish.ejs', { error: "" });
 });
+
 
 // Publish a demo
 server.post('/publish', (req, res ) => {
@@ -156,7 +176,7 @@ server.post('/publish', (req, res ) => {
 		creator: req.session.username
 	}
 	Game.create( data , function( error ,data ){
-		if (error.code === 11000) {
+		if (error) {
 			res.render("publish.ejs", {error: `A game with the name ${ data.title } has already been made, please reupload with a different title` })
 			console.log( error );
 		} else {
@@ -209,7 +229,7 @@ server.post('/signin', (req, res) => {
 				req.session.currentGamefile= "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560127672/iutq9zpvxl6oxfvjv655.gb"
 				req.session.currentGameTitle = "SAM Stuff About Me"
 				req.session.currentGameArt = "https://res.cloudinary.com/dpl1ntt00/image/upload/v1560127688/crrdb2yrxbc7jqcbx3vw.jpg"
-				console.log( req.session );
+				console.log( req.session.currentGameTitle );
 				res.redirect('/home')
 			} else {
 				req.session.success = false;

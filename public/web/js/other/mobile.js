@@ -1,4 +1,5 @@
 var romPath = document.getElementById('gamefile').value
+console.log("Demo GB is now playing " +  document.getElementById('gametitle').value );
 var mainCanvas = null;
 var soundReady = false;
 

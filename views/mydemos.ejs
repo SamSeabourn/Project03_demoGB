@@ -6,7 +6,6 @@
   <div class="">
     <h1> My demos </h1>
 		<% data.forEach(function(game){ %>
-			<h1>  </h1>
 			<div class="cartridge">
 			  <div class="part part_1"></div>
 			  <div class="part part_2">
@@ -27,6 +26,14 @@
 			    </div>
 			  </div>
 			  <div class="part triangle"></div>
+				<div>
+					<h1>
+						<form action="/playthisgame/" method="POST">
+							<input type="hidden" name="gameTitle" value=<%= game.title %> >
+							<button type="submit"/> Play </submit>
+						</form>
+					</h1>
+				</div>
 			</div>
 
 
