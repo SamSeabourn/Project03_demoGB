@@ -140,18 +140,21 @@ server.get('/mydemos', (req, res) => {
 server.post('/playthisgame', (req, res) => {
 	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 	console.log( "post request fired" );
-	gameTitle = req.body.gameTitle
-	console.log( gameTitle );
-	Game.find({creator:req.session.username}, function( err, foundData){
+	gameID = req.body.gameID
+	console.log( gameID );
+	Game.find({_id: gameID }, function( err, foundGame){
 		if(err){
-			console.log("Error");
+			console.log("Error ting");
 			console.log( err );
 		} else {
-			dataFromDB = foundData
-			res.render('mydemos.ejs', {data: dataFromDB} );
+			console.log("FOund this brah");
+			console.log( foundGame );
+			req.session.currentGamefile = foundGame[0].gamefile
+			req.session.currentGameTitle = foundGame[0].title
+			req.session.currentGameArt = foundGame[0].coverArt
+			res.redirect('/home');
 		}
 	})
-  res.redirect('/home');
 });
 
 
@@ -227,9 +230,9 @@ server.post('/signin', (req, res) => {
 				req.session.success = true;
 				req.session.username = currentUser
 				req.session.currentGamefile= "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560127672/iutq9zpvxl6oxfvjv655.gb"
-				req.session.currentGameTitle = "SAM Stuff About Me"
+				req.session.currentGameTitle = "Stuff"
 				req.session.currentGameArt = "https://res.cloudinary.com/dpl1ntt00/image/upload/v1560127688/crrdb2yrxbc7jqcbx3vw.jpg"
-				console.log( req.session.currentGameTitle );
+				console.log( req.session );
 				res.redirect('/home')
 			} else {
 				req.session.success = false;
@@ -241,7 +244,7 @@ server.post('/signin', (req, res) => {
 
 
 
-///////// 404'd /////////
+///////// 404 CATCHER /////////
 server.get('/*', (req, res) => {
   res.render('404.ejs', { error: "" });
 });
