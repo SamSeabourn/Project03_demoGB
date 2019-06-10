@@ -1,4 +1,4 @@
-var romPath = "/web/rom/game.gb";
+var romPath = document.getElementById('gamefile').value
 var mainCanvas = null;
 var soundReady = false;
 

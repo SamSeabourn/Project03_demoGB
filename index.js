@@ -89,9 +89,14 @@ server.use(expressSession({
 
 // Home Page
 server.get('/home', (req, res) => {
-	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
-		res.render('home.ejs')
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	res.render('home.ejs',{
+		currentGameFile: req.session.currentGamefile,
+	 	currentGameArt: req.session.currentGameArt,
+		currentGameTitle: req.session.currentGameTitle
+	 })
 });
+
 
 //Sign Up
 server.get('/signup', (req, res) => {
@@ -110,20 +115,20 @@ server.get('/signin', (req, res) => {
 
 // Play demos
 server.get('/play', (req, res) => {
-	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
   res.render('play.ejs');
 });
 
 // My Demos
 server.get('/mydemos', (req, res) => {
+	console.log( req.session.username );
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 	let dataFromDB =[]
 	Game.find({creator:req.session.username}, function( err, foundData){
 		if(err){
 			console.log("Error");
 			console.log( err );
 		} else {
-			console.log( "Found" );
-			console.log( foundData );
 			dataFromDB = foundData
 		  res.render('mydemos.ejs', {data: dataFromDB} );
 		}
@@ -133,13 +138,13 @@ server.get('/mydemos', (req, res) => {
 
 // Publish Game Page
 server.get('/publish', (req, res) => {
-	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
   res.render('publish.ejs', { error: "" });
 });
 
 // Publish a demo
 server.post('/publish', (req, res ) => {
-	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 	let pageData = req.body
 	let data = {
 		title: pageData.title,
@@ -198,12 +203,17 @@ server.post('/signin', (req, res) => {
 		}
 		bcrypt.compare(user.password, hash, function(bcryptError, bcryptRes) {
 			if (bcryptRes) {
+
 				req.session.success = true;
 				req.session.username = currentUser
+				req.session.currentGamefile= "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560127672/iutq9zpvxl6oxfvjv655.gb"
+				req.session.currentGameTitle = "SAM Stuff About Me"
+				req.session.currentGameArt = "https://res.cloudinary.com/dpl1ntt00/image/upload/v1560127688/crrdb2yrxbc7jqcbx3vw.jpg"
+				console.log( req.session );
 				res.redirect('/home')
 			} else {
 				req.session.success = false;
-				res.render('signin.ejs', { error: "Password is incorrect"})
+				res.render('signin.ejs', { error: "Password is incorrect" })
 			}
 		});
 	});

@@ -3,12 +3,15 @@
 <% include partials/head.ejs %>
 
 <body>
+	<div>
+		<input type="text" id="gamefile" name="coverArt" value=<%= currentGameFile %> >
+		<input type="text" id="gametitle" name="coverArt" value=<%= currentGameArt %> >
+		<input type="text" id="gameArt" name="coverArt" value=<%= currentGameTitle %>>
+	</div>
 
 	<div>
 		<% include partials/menu.ejs %>
 	</div>
-
-
 
   <div class="gameboyContainer">
     <% include partials/gameboyconsole.ejs %>
@@ -17,6 +20,7 @@
 	<div id="secretGB">
 		<% include partials/secretgameboyconsole.ejs %>
 	</div>
+
 
 </body>
 

@@ -5,6 +5,7 @@ $yellow= #f0e932;
 $gb-grey = #9304a0; */
 
 * {
+	box-sizing: border-box;
 	border: 1px dashed white;
 	font-family: 'Rubik', sans-serif;
   /* font-family: 'Noto Sans JP', sans-serif; */
@@ -46,7 +47,7 @@ body {
   height: 100%;
   border: 1px dashed magenta;
   background: #602b8b;
-  background: linear-gradient(to bottom,  #602b8b 0%,#602b8b 33%,#000000 100%);
+  background: linear-gradient( #602b8b 0%,#602b8b 33%,#000000 100%);
 }
 
 .headerBar {
@@ -220,39 +221,115 @@ h1 {
   }
 }
 
-/*
-@-webkit-keyframes rotation {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
+/* ___   _   ___ _____     _   ___ _____
+/// __| /_\ | _ \_   _|   /_\ | _ \_   _|
+/| (__ / _ \|   / | |    / _ \|   / | |
+//\___/_/ \_\_|_\ |_|   /_/ \_\_|_\ |_|   */
+
+
+.cartridge {
+  margin: 0.5em auto;
+  width: 250px;
 }
-@-moz-keyframes rotation {
-  from {
-    -moz-transform: rotate(0deg);
-  }
-  to {
-    -moz-transform: rotate(360deg);
-  }
+.part {
+  background: #ccc;
+  width: 250px;
+  height: 10px;
+  position: relative;
 }
-@-o-keyframes rotation {
-  from {
-    -o-transform: rotate(0deg);
-  }
-  to {
-    -o-transform: rotate(360deg);
-  }
+.part_1 {
+  width: 235px;
+  border-radius: 5px 5px 0 0;
 }
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.part_2 {
+  height: 50px;
+}
+.stripe {
+  background: #aaa;
+  height: 5px;
+  top: 10px;
+  margin-bottom: 5px;
+}
+.logo {
+  width: 220px;
+  height: 50px;
+  margin: 0 auto -50px auto;
+  top: -45px;
+  border: 5px solid #ccc;
+  border-radius: 20px;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#aaaaaa), to(#cccccc));
+  background: -webkit-linear-gradient(#aaaaaa 0%, #cccccc 100%);
+  background: -moz-linear-gradient(#aaaaaa 0%, #cccccc 100%);
+  background: -o-linear-gradient(#aaaaaa 0%, #cccccc 100%);
+  background: linear-gradient(#aaaaaa 0%, #cccccc 100%);
+}
+.logo p {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  font-weight: bold;
+  color: #aaa;
+}
+.logo p span {
+  text-transform: uppercase;
+  font-style: italic;
+}
+.large {
+  height: 40px;
+}
+.dark {
+  background: #B4B4B4;
+  height: 180px;
+  border-radius: 0 0 5px 5px;
+}
+.dark .part {
+  width: 235px;
+  margin: 0 auto;
+  height: 182px;
+}
+.image_bg {
+  width: 210px;
+  margin: 0 auto -180px auto;
+  top: -205px;
+  border-radius: 5px;
+}
+.gameimage {
+  background: #aaa;
+  width: 200px !important;
+  height: 170px !important;
+	width: 100%;
+  top: 5px;
+  border-radius: 5px;
+
+}
+.gameimage p {
+  position: absolute;
+  top: 35px;
+  left: 13px;
+  font-size: 1.5em;
+  color: #ccc;
+  transform: rotate(-5deg);
+  opacity: 0.7;
+	object-fit: cover;
+}
+
+#sticker {
+    object-fit: cover;
+    width: 100%;
+    height: inherit;
+    top: 0px;
+}
+
+.triangle {
+   background: none;
+   width: 0;
+   height: 0;
+   border-top: 20px solid #B4B4B4;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+   margin: 0 auto;
+   top: -21px;
+}
+
 
 @media (orientation:portrait) {
 	/* body { background: grey; } */
