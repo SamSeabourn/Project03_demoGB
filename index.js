@@ -8,13 +8,9 @@ const axios = require('axios');
 const expressSession = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const KEY = require('./config/keys')
+const KEY = require('./config/keys');
 const server = express();
-const fileUpload = require('express-fileupload')
-const multer = require('multer');
-
-console.log("this is the key object");
-console.log(KEY);
+const fileUpload = require('express-fileupload');
 
 global.User = require('./models/userschema')
 global.Game = require('./models/gameschema')
@@ -52,7 +48,7 @@ server.use(expressSession({ secret: "anything" , saveUninitialized: false , resa
 //////// SESSIONS CONFIG ////////
 
 server.use(expressSession({
-  secret: KEY.KEY ,
+  secret: "anything" ,
   resave: true,
   saveUninitialized: false,
 	maxAge: 60 * 60 * 24
@@ -102,6 +98,7 @@ server.get('/play', (req, res) => {
 		if(err){
 			console.log("Error");
 			console.log( err );
+			foundData = ""
 		} else {
 			dataFromDB = foundData
 			console.log( foundData);
@@ -114,19 +111,21 @@ server.get('/play', (req, res) => {
 server.get('/mydemos', (req, res) => {
 	console.log( req.session.username );
 	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
-	let dataFromDB =[]
+	let dataFromDB = []
 	Game.find({creator:req.session.username}, function( err, foundData){
 		if(err){
 			console.log("Error");
 			console.log( err );
 		} else {
 			dataFromDB = foundData
+			console.log( " found data is ");
+			console.log( foundData );
 		  res.render('mydemos.ejs', {data: dataFromDB} );
 		}
 	})
 });
 
-
+// Play game method
 server.post('/playthisgame', (req, res) => {
 	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 	console.log( "post request fired" );
@@ -134,16 +133,32 @@ server.post('/playthisgame', (req, res) => {
 	console.log( gameID );
 	Game.find({_id: gameID }, function( err, foundGame){
 		if(err){
-			console.log("Error ting");
 			console.log( err );
 		} else {
-			console.log("FOund this brah");
 			console.log( foundGame );
 			req.session.currentGamefile = foundGame[0].gamefile
 			req.session.currentGameTitle = foundGame[0].title
 			req.session.currentGameArt = foundGame[0].coverArt
 			res.redirect('/home');
 		}
+	})
+});
+
+// Delete method
+server.post('/deletethisgame', (req, res) => {
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	console.log( "delete post request fired" );
+	gameID = req.body.gameID
+	console.log( gameID );
+	Game.deleteOne({_id: gameID }, function( err, res ){
+		if(err){
+			console.log( err );
+			res.redirect('/home');
+		} else {
+			console.log("game deleted");
+		}
+	}).then(()=>{
+		return res.redirect('/mydemos');
 	})
 });
 
