@@ -8,23 +8,22 @@ const axios = require('axios');
 const expressSession = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const SECRET = require('./keysAndThings.js')
+const KEY = require('./config/keys')
 const server = express();
 const fileUpload = require('express-fileupload')
 const multer = require('multer');
 
+console.log("this is the key object");
+console.log(KEY);
 
 global.User = require('./models/userschema')
 global.Game = require('./models/gameschema')
 
 
-const CLOUDINARY_API_KEY = 268751858638495
-const CLOUDINARY_API_SECRET = "8rJh9MIPVL0CxwQ0KwfdU2lxBTE"
-
 cloudinary.config({
   cloud_name: 'dpl1ntt00',
-  api_key: CLOUDINARY_API_KEY,
-  api_secret: CLOUDINARY_API_SECRET
+  api_key: KEY.CLOUDINARY_API_KEY,
+  api_secret: KEY.CLOUDINARY_API_SECRET
 });
 
 
@@ -36,7 +35,7 @@ const PORT = process.env.PORT || 1337
 //////// MONGOOSE CONFIG /////////
 
 mongoose.Promise = global.Promise;
-mongoose.connect( SECRET.KEY, { useNewUrlParser: true , useCreateIndex: true } );
+mongoose.connect( KEY.MONGO_URI, { useNewUrlParser: true , useCreateIndex: true } );
 mongoose.set('useFindAndModify', false );
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -48,13 +47,12 @@ server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 server.set('view-engine', 'ejs');
 server.use(express.static('public'));
-// server.use(fileUpload());
-server.use(expressSession({ secret: SECRET.KEY , saveUninitialized: false , resave: false }))
+server.use(expressSession({ secret: "anything" , saveUninitialized: false , resave: false }))
 
 //////// SESSIONS CONFIG ////////
 
 server.use(expressSession({
-  secret: SECRET.KEY ,
+  secret: KEY.KEY ,
   resave: true,
   saveUninitialized: false,
 	maxAge: 60 * 60 * 24
@@ -257,111 +255,17 @@ server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }
 
 
 
-///////// CODE GRAVE YARD //////////
-
-//////Mongo DB Connection via Mongo docs
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://Sam:testing1234@demogb-kmxfo.mongodb.net/test?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
 
 
 
-////
-// var UserSchema = new mongoose.Schema({
-//     username: String,
-//     passwordDigest: String,
-//     currentCash: Number,
-//     games: {
-//       gameUrl: String,
-//       description: String,
-//       imageUrl: String,
-//       currentRevenue: Number,
-//       stars: Number,
-//       copiesSold: Number
-//     }
-//   });
-//
-// var user = mongoose.model("User" , UserSchema )
-//////////
-/////// Create user
-// Testing adding data Params will eventualy need to passed into here
-// User.create({
-//     email: "sam.seabourn5@gmail.com",
-//     username: "Test5",
-//     password: "chicken",
-//     passwordConf: "chicken",
-//     currentCash: 13.50,
-//     games: {
-//       gameName: "Dragon Quest",
-//       gameUrl: "http://cloudinary.mymadassgame.com",
-//       description: "Pretty sick game that I made I guess cooleo, GG",
-//       imageUrl: "http://fillmurray.com/200/200",
-//       currentRevenue: 0,
-//       stars: 0,
-//       copiesSold: 0
-//     }
-//   }, function(error,data){
-//     if (error) {
-//       console.log("There was an error:" + error);
-//     } else {
-//       console.log("the following data was added to the collection:");
-//       console.log( data );
-//     }
-//   })
-//
-//////////////////
-// console.log("Login sucessfull");
-// console.log( foundUser );
-// jwt.sign({ foundUser }, secret, ( err, token ) => {
-// 	console.log( "The token is " + token );
-// 	res.json({
-// 		token
-// 	})
-// })
-// CREATES A JWT TOKEN
-// const createToken = () => {
-// 	let token = jwt.sign({ foundUser }, secret )
-// 	console.log("The token is");
-// 	console.log( token );
-// 	return token
-// }
-
-// Token Verifier
-// const verifyToken = function (req, res, next) {
-// 	const bearerHeader = request.headers['authorization']
-// 	if (typeof bearerHeader !== 'undefined') {
-// 	const bearer = bearerHeader.split(' ');
-// 	const bearerToken = bearer[1]
-// 	req.token = bearerToken
-// 	next()
-// 	} else {
-// 		res.sendStatus(403)
-// 	}
-// }
-// const storage = multer.diskStorage({
-//   filename: function(req, file, callback) {
-//     callback(null, Date.now() + file.originalname);
-//   }
-// });
-//
-// const upload = multer({ storage: storage })
-
-// const storage = cloudinaryStorage({
-// 	cloudinary: cloudinary,
-// 	folder: "demo",
-// 	allowedFormats: ["jpg", "png", "gb"],
-// 	transformation: [{ width: 500, height: 500, crop: "limit" }]});
 
 
-// const CLOUD_NAME = "dpl1ntt00"
-// const API_KEY = "914122464552653"
-// const API_SECRET = "u3WPB2RqNcDBmkiN7Mc5v-dOpV0"
-// const parser = multer({ storage: storage });
+
+
+
+
+
+
 
 
 
