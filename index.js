@@ -66,7 +66,7 @@ server.use(expressSession({
 // Home Page
 server.get('/home', (req, res) => {
 	console.log( req.session.currentGameTitle );
-	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 	res.render('home.ejs',{
 		currentGameTitle: req.session.currentGameTitle,
 		currentGameFile: req.session.currentGamefile,
@@ -78,6 +78,12 @@ server.get('/home', (req, res) => {
 //Sign Up
 server.get('/signup', (req, res) => {
   res.render('signup.ejs', { error: "" });
+});
+
+// Log out
+server.get('/signout', (req, res) => {
+	req.session.success = false
+  res.redirect('/signin');
 });
 
 // Home routed to sign in
