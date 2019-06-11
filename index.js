@@ -18,20 +18,6 @@ global.User = require('./models/userschema')
 global.Game = require('./models/gameschema')
 
 
-var storage = multer.diskStorage({
-  filename: function(req, file, callback) {
-    callback(null, Date.now() + file.originalname);
-  }
-});
-// var imageFilter = function (req, file, cb) {
-//     // accept image files only
-//     if (!file.originalname.match(/\.(jpg|jpeg|png|gif|gb)$/i)) {
-//         return cb(new Error('Only image files are allowed!'), false);
-//     }
-//     cb(null, true);
-// };
-var upload = multer({ storage: storage })
-
 const CLOUDINARY_API_KEY = 268751858638495
 const CLOUDINARY_API_SECRET = "8rJh9MIPVL0CxwQ0KwfdU2lxBTE"
 
@@ -74,23 +60,13 @@ server.use(expressSession({
 	maxAge: 60 * 60 * 24
 }));
 
-///////// CLOUDINARY CONFIG ////////
-//
-
-// cloudinary.config({
-//   cloud_name: 'dpl1ntt00',
-//   api_key: '268751858638495',
-//   api_secret: '8rJh9MIPVL0CxwQ0KwfdU2lxBTE'
-// });
-
-
 
 ///////// ROUTES /////////
 
 // Home Page
 server.get('/home', (req, res) => {
 	console.log( req.session.currentGameTitle );
-	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 	res.render('home.ejs',{
 		currentGameTitle: req.session.currentGameTitle,
 		currentGameFile: req.session.currentGamefile,
@@ -117,7 +93,17 @@ server.get('/signin', (req, res) => {
 // Play demos
 server.get('/play', (req, res) => {
 	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
-  res.render('play.ejs');
+	let dataFromDB = []
+	Game.find({}, function( err, foundData){
+		if(err){
+			console.log("Error");
+			console.log( err );
+		} else {
+			dataFromDB = foundData
+			console.log( foundData);
+			res.render('play.ejs', {data: dataFromDB} );
+		}
+	})
 });
 
 // My Demos
@@ -393,7 +379,7 @@ const GBBOMB = () => {
 		console.log("| |  '----------------------'  | |");
 		console.log("| |__GAME BOY_________________/  |");
 		console.log("|             ________           |");
-		console.log("|    .     (Nintendo)            |");
+		console.log("|    .     (Nintenbro)           |");
 		console.log("|  _| |_                   .-.   |");
 		console.log("|-[_   _]-            .-. (   )  |");
 		console.log("|   |_|              (   ) '-'   |");

@@ -6,7 +6,7 @@
 	<div>
 		<input type="hidden" id="gamefile" value=<%= currentGameFile %> >
 		<input type="hidden" id="gameArt" value=<%= currentGameArt %> >
-		<input type="" id="gametitle"  value=<%= currentGameTitle %>>
+		<input type="hidden" id="gametitle"  value=<%= currentGameTitle %>>
 	</div>
 
 	<div>
@@ -15,6 +15,10 @@
 
   <div class="gameboyContainer">
     <% include partials/gameboyconsole.ejs %>
+  </div>
+
+  <div class="lets-get-physical">
+    <% include partials/letsgetphysical.ejs %>
   </div>
 
 	<div id="secretGB">
