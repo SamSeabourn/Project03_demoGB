@@ -1,6 +1,5 @@
 const express = require('express');
 const cloudinary = require("cloudinary").v2;
-const cloudinaryStorage = require("multer-storage-cloudinary");
 const ejs = require('ejs');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
@@ -171,7 +170,7 @@ server.get('/publish', (req, res) => {
 
 // Lets get physical
 server.get('/letsgetphysical', (req, res) => {
-	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
   res.render('letsgetphysical.ejs', { error: "" });
 });
 
