@@ -163,10 +163,16 @@ server.post('/deletethisgame', (req, res) => {
 });
 
 
-// Publish Game Page
+// Publish Demo Page
 server.get('/publish', (req, res) => {
 	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
   res.render('publish.ejs', { error: "" });
+});
+
+// Lets get physical
+server.get('/letsgetphysical', (req, res) => {
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+  res.render('letsgetphysical.ejs', { error: "" });
 });
 
 
