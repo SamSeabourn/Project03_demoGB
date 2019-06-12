@@ -600,9 +600,9 @@ input:focus {
 		 background-position: center;
 		 background-size: cover;
 		 height: 140px;
-		 width: 70%;
+		 width: 80%;
 		 bottom: 7%;
-		 left: calc(15% - 1%);
+		 left: calc(11% - 1%);
 		 position: absolute;
 		 border: #828487 solid 2px;
 		 border-radius: 4px;

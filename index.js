@@ -92,7 +92,7 @@ server.get('/signin', (req, res) => {
 
 // Play demos
 server.get('/play', (req, res) => {
-	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 	let dataFromDB = []
 	Game.find({}, function( err, foundData){
 		if(err){
@@ -171,7 +171,7 @@ server.get('/publish', (req, res) => {
 
 // Lets get physical
 server.get('/letsgetphysical', (req, res) => {
-	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
   res.render('letsgetphysical.ejs', { error: "" });
 });
 
@@ -194,12 +194,10 @@ server.post('/publish', (req, res ) => {
 			res.render("publish.ejs", {error: `A game with the name ${ data.title } has already been made, please reupload with a different title` })
 			console.log( error );
 		} else {
-			console.log("game deleted");
+			console.log("game created")
 		}
-	}).then(()=>{
-		return res.redirect('/mydemos');
+		res.redirect('/mydemos');
 	})
-
 });
 
 // Sign up with encrypted password
@@ -242,9 +240,9 @@ server.post('/signin', (req, res) => {
 
 				req.session.success = true;
 				req.session.username = currentUser
-				req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560127672/iutq9zpvxl6oxfvjv655.gb"
-				req.session.currentGameTitle = "Stuff"
-				req.session.currentGameArt = "https://res.cloudinary.com/dpl1ntt00/image/upload/v1560127688/crrdb2yrxbc7jqcbx3vw.jpg"
+				req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560346037/tihrtlb1nctfi0rmftfg.gb"
+				req.session.currentGameTitle = "Stuff About Me"
+				req.session.currentGameArt = "https://res.cloudinary.com/dpl1ntt00/image/upload/v1560346244/dwvmgez1bbxoxwud47fo.jpg"
 				console.log( req.session );
 				res.redirect('/home')
 			} else {
