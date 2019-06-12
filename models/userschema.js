@@ -21,6 +21,18 @@ var UserSchema = new mongoose.Schema({
     currentCash: Number,
 });
 
+// This ensures the password is encrypted before post request
+UserSchema.pre('save', function (next) {
+  let user = this;
+  bcrypt.hash(user.password, 10, function (err, hash){
+    if (err) {
+      return next("Hashing error:" + err);
+    }
+    user.password = hash;
+    next();
+  })
+});
+
 
 const User = mongoose.model('User', UserSchema);
 module.exports = User

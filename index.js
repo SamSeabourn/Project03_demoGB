@@ -237,7 +237,7 @@ server.post('/signin', (req, res) => {
 		}
 		bcrypt.compare(user.password, hash, function(bcryptError, bcryptRes) {
 			if (bcryptRes) {
-
+				console.log( bcryptRes );
 				req.session.success = true;
 				req.session.username = currentUser
 				req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560346037/tihrtlb1nctfi0rmftfg.gb"
@@ -247,11 +247,14 @@ server.post('/signin', (req, res) => {
 				res.redirect('/home')
 			} else {
 				req.session.success = false;
+				console.log( bcryptError );
+				console.log( bcryptRes );
 				res.render('signin.ejs', { error: "Password is incorrect" })
 			}
 		});
 	});
 })
+
 
 
 
