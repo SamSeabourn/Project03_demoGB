@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <% include partials/head.ejs %>
+<% include partials/background.ejs %>
 
 <body>
-  <div class="">
-    <h1> SIGN UP PAGE </h1>
-  </div>
-
-
-  <form action"/signup/" method="POST">
-    <input type="email" placeholder="Your Email" name="email"> <br/>
-    <input type="text" placeholder="Username" name="username"> <br/>
-    <input type="password" placeholder="Password" name="password"> <br/>
-    <input type="password" placeholder="Password again" name="passwordConf"> <br/>
-		<span class="errorZone"> <%= error %> </span> <br/>
-    <button type="submit"/> Join </submit>
-  </form>
+	<div class="formbox">
+		<h1> SIGN UP PAGE </h1>
+	  <form action"/signup/" method="POST">
+	    <input type="email" placeholder="Your Email" name="email"> <br/>
+	    <input type="text" placeholder="Username" name="username"> <br/>
+	    <input type="password" placeholder="Password" name="password"> <br/>
+	    <input type="password" placeholder="Password again" name="passwordConf"> <br/>
+			<span class="errorZone"> <%= error %> </span> <br/>
+	    <input type="submit" value="Join" class="darkmagentabg white"/>
+	  </form>
+	</div>
 </body>
 
 

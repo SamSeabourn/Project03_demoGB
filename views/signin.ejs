@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <% include partials/head.ejs %>
+<% include partials/background.ejs %>
 
 <body>
-
   <div class="">
-    <h1> SIGN IN PAGE </h1>
-  </div>
-
-  <form action="/signin/" method="POST">
-		<input type="text" placeholder="Username" name="username"> <br/>
-    <input type="password" placeholder="Password" name="password"> <br/>
-				<span class="errorZone"> <%= error %> </span> <br/>
-    <input type="submit" value="Sign In" />
-  </form>
-  <span>Not a member? <a href="/signup"> sign up here </a></span>
-
-
+	  </div>
+	 <div class="formbox">
+		 <h1> Sign In </h1>
+	  <form action="/signin/" method="POST">
+			<input type="text" placeholder="Username" name="username"> <br/>
+	    <input type="password" placeholder="Password" name="password"> <br/>
+					<span class="errorZone"> <%= error %> </span> <br/>
+	    <input type="submit" value="Sign In" class="darkmagentabg white" />
+	  </form>
+	  <span>Not a member? <a href="/signup" class="darkmagenta"> sign up here </a></span>
+	</div>
 </body>
 
 
