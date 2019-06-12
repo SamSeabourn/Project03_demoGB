@@ -240,7 +240,7 @@ server.post('/signin', (req, res) => {
 				console.log( bcryptRes );
 				req.session.success = true;
 				req.session.username = currentUser
-				req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560346037/tihrtlb1nctfi0rmftfg.gb"
+				req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560382389/bvcdn019354ctoqsjq8o.gb"
 				req.session.currentGameTitle = "Stuff About Me"
 				req.session.currentGameArt = "https://res.cloudinary.com/dpl1ntt00/image/upload/v1560346244/dwvmgez1bbxoxwud47fo.jpg"
 				console.log( req.session );
