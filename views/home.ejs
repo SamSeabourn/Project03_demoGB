@@ -2,6 +2,12 @@
 <html lang="en" dir="ltr">
 <% include partials/head.ejs %>
 <% include partials/background.ejs %>
+<body>
+	<div>
+		<input type="hidden" id="gamefile" value=<%= currentGameFile %> >
+		<input type="hidden" id="gameArt" value=<%= currentGameArt %> >
+		<input type="hidden" id="gametitle"  value=<%= currentGameTitle %>>
+	</div>
 
 
   <div class="gameboyContainer">

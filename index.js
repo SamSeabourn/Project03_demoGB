@@ -242,7 +242,7 @@ server.post('/signin', (req, res) => {
 
 				req.session.success = true;
 				req.session.username = currentUser
-				req.session.currentGamefile= "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560127672/iutq9zpvxl6oxfvjv655.gb"
+				req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560127672/iutq9zpvxl6oxfvjv655.gb"
 				req.session.currentGameTitle = "Stuff"
 				req.session.currentGameArt = "https://res.cloudinary.com/dpl1ntt00/image/upload/v1560127688/crrdb2yrxbc7jqcbx3vw.jpg"
 				console.log( req.session );
