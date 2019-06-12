@@ -9,8 +9,8 @@ $gb-grey = #9304a0; */
 	box-sizing: border-box;
 	/* border: 1px dashed white; */
 	font-family: 'Rubik', sans-serif;
-  /* font-family: 'Noto Sans JP', sans-serif; */
-	color: white;
+  /* font-faminoly: 'Noto Sans JP', sans-serif; */
+	color: black;
 }
 
 a {
@@ -204,16 +204,17 @@ input:focus {
 }
 
 .backButton {
-    text-align: center;
-    position: fixed;
-    width: 20%;
-    padding: 1%;
-    padding-top: 35%;
-    top: 0;
-    left: 2%;
-    z-index: 11;
-    background-color: rgba(0,0,0,0.7);
-    font-size: 27px;
+	text-align: center;
+	position: fixed;
+	width: 20%;
+	height: 100%;
+	padding: 1%;
+	padding-top: 18%;
+	top: 0;
+	left: 2%;
+	z-index: 11;
+	background-color: rgba(0,0,0,0.7);
+	font-size: 27px;
 }
 .backButton a {
 	bottom: 2%;
