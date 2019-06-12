@@ -60,6 +60,7 @@ server.use(expressSession({
 server.get('/home', (req, res) => {
 	console.log( req.session.currentGameTitle );
 	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	console.log( req.session );
 	res.render('home.ejs',{
 		currentGameTitle: req.session.currentGameTitle,
 		currentGameFile: req.session.currentGamefile,
