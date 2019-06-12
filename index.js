@@ -194,10 +194,12 @@ server.post('/publish', (req, res ) => {
 			res.render("publish.ejs", {error: `A game with the name ${ data.title } has already been made, please reupload with a different title` })
 			console.log( error );
 		} else {
-			res.render("publish.ejs", {error: "Upload complete"} )
+			console.log("game deleted");
 		}
+	}).then(()=>{
+		return res.redirect('/mydemos');
 	})
-	res.redirect('/mydemos')
+
 });
 
 // Sign up with encrypted password

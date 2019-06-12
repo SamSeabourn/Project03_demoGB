@@ -138,6 +138,7 @@ input:focus {
 }
 
 .sideMenu {
+	text-align: center;
 	top: 0%;
   padding-top: 16%;
   height: 100vh;
@@ -181,6 +182,20 @@ input:focus {
 	margin: 0 0 15% 0;
 	color: #c92c61;
 	background-color: white;
+}
+.playButtons2 {
+	margin: 0 0 1% 0;
+}
+.deleteButton {
+	color: #c92c61;
+	background-color: white;
+	margin: 0 0 15% 0;
+	font-weight: bolder;
+}
+.deleteButton:hover {
+	color: grey;
+	background-color: maroon:
+	margin: 0 0 15% 0;
 }
 
 .topPad {

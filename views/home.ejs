@@ -3,14 +3,6 @@
 <% include partials/head.ejs %>
 <% include partials/background.ejs %>
 
-<body>
-	<div>
-		<input type="hidden" id="gamefile" value=<%= currentGameFile %> >
-		<input type="hidden" id="gameArt" value=<%= currentGameArt %> >
-		<input type="hidden" id="gametitle"  value=<%= currentGameTitle %>>
-	</div>
-
-
 
   <div class="gameboyContainer">
     <% include partials/gameboyconsole.ejs %>
@@ -22,7 +14,7 @@
 
   <div class="lets-get-physical">
 
-			<p class="nowPlaying"><a href=""> Click Buy a physical version of <br> <%= currentGameTitle %></a></p>
+			<p class="nowPlaying"><a href="/letsgetphysical"> Click Buy a physical version of <br> <%= currentGameTitle %></a></p>
 			<!-- <a> My Console </a> -->
 			<div id="centeralign3d">
 			<section class="cartridge3d">

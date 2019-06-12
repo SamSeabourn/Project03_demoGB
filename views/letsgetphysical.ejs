@@ -2,10 +2,42 @@
 <html lang="en" dir="ltr">
 <% include partials/head.ejs %>
 <% include partials/background.ejs %>
+<% include partials/backbutton.ejs %>
+
 
 <body>
-	<form class="orderForm">
-		<h3> STRIP PAYMENT HERE </h3>
-		<input type="text" name="" value="COOL STORY BRO">
+	<form class="formbox">
+		<h1> *Purchases Coming Soon* </h1>
+		<div class="cartridge">
+			<div class="part part_1"></div>
+			<div class="part part_2">
+				<div class="part stripe"></div>
+				<div class="part stripe"></div>
+				<div class="part stripe"></div>
+				<div class="part stripe"></div>
+				<div class="part stripe"></div>
+			</div>
+			<div class="part logo"></div>
+			<div class="part large"></div>
+			<div class="part dark">
+				<div class="part"></div>
+			</div>
+			<div class="part dark image_bg">
+				<div class="part gameimage">
+					<img  id="sticker">
+				</div>
+			</div>
+			<div class="part triangle"></div>
+			<div>
+				<h1>
+				</h1>
+			</div>
+		</div>
+		<input type="text" placeholder="First name">
+		<input type="text" placeholder="Last Name">
+		<input type="text" placeholder="Credit Card Details">
+		<input type="text" placeholder="Expiry Date    /      /    ">
+		<input type="text" placeholder="Security code">
+		<input type="submit" value="Proceed to checkout" class="darkmagentabg white playButtons">
 	</form>
 </body>
