@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <% include partials/head.ejs %>
+<% include partials/background.ejs %>
 
 <body>
-  <div class="">
-    <h1> PLAY DEMOS PAGE</h1>
-  </div>
+	<div class="topPad">
+
+	</div>
 	<% data.forEach(function(game){ %>
 		<div class="cartridge">
 			<div class="part part_1"></div>
@@ -16,7 +17,7 @@
 				<div class="part stripe"></div>
 				<div class="part stripe"></div>
 			</div>
-			<div class="part logo"><p>Nintendo <span>Gameboy</span></p></div>
+			<div class="part logo"></div>
 			<div class="part large"></div>
 			<div class="part dark">
 				<div class="part"></div>
@@ -31,7 +32,7 @@
 				<h1>
 					<form action="/playthisgame/" method="POST">
 						<input type="hidden" name="gameID" value=<%= game._id %> >
-						<button type="submit"/> Play </submit>
+						<input type="submit" class="darkmagentabg white playButtons" value="Play <%= game.title %>"/></submit>
 					</form>
 				</h1>
 			</div>

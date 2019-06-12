@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <% include partials/head.ejs %>
+<% include partials/background.ejs %>
+<% include partials/backButton.ejs %>
 
 <body>
-  <div class="">
-    <h1> Publish Demos </h1>
-  </div>
 	<div>
-		<label for="file-upload"> UPLOAD GAME FILE </label>
-		<input type="file" id="file-upload" accept=".gb"> <br>
-		<label for="image-upload" accept=".gb"> UPLOAD COVER ART</label>
-		<input type="file" id="image-upload" accept="image/png, image/jpeg, image/gif" />
+			<div class="formbox">
+			  <h1> Publish Demo </h1>
+				<label for="file-upload"> Upload .GB file </label>
+				<input type="file" id="file-upload" accept=".gb"> <br>
+				<label for="image-upload" accept=".gb"> UPLOAD Upload image file</label>
+				<input type="file" id="image-upload" accept="image/png, image/jpeg, image/gif" />
+			</div>
+			<div class="formbox formboxHack">
+				<form action="/publish/" method="POST">
+					<input type="text" placeholder="Game Title" name="title" required> <br>
+					<input type="text" value="Description...." name="description" required> <br />
+					<input type="hidden" id="lol-this-is-janky" name="gamefile">
+					<input type="hidden" id="lol-this-is-janky2" name="coverArt">
+					<span class="errorZone"> <%= error %> </span>
+					<br/>
+					<input value="publish" type="submit" class="hidden darkmagentabg white" id="submitButton"/>
+				</form>
+			</div>
+			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+			<script src="/scripts/app.js"></script>
 	</div>
-
-
-		<form action="/publish/" method="POST">
-			<input type="text" placeholder="Game Title" name="title" required> <br>
-			<input type="text" value="Description...." name="description" required> <br />
-
-			<input type="hidden" id="lol-this-is-janky" name="gamefile">
-			<input type="hidden" id="lol-this-is-janky2" name="coverArt">
-			<span class="errorZone"> <%= error %> </span>
-			<br/>
-			<button type="submit" class="hidden" id="submitButton"/> Publish </submit>
-
-		</form>
-
-
-	</div>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script src="/scripts/app.js"></script>
 </body>
 
 

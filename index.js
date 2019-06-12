@@ -92,7 +92,7 @@ server.get('/signin', (req, res) => {
 
 // Play demos
 server.get('/play', (req, res) => {
-	if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
+	// if (!req.session.success) {res.render('pleaselogin.ejs')} // Login Checker
 	let dataFromDB = []
 	Game.find({}, function( err, foundData){
 		if(err){
