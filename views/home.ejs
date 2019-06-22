@@ -2,101 +2,101 @@
 <html lang="en" dir="ltr">
 <% include partials/head.ejs %>
 <% include partials/background.ejs %>
+
 <body>
 	<div>
-		<input type="hidden" id="gamefile" value=<%= currentGameFile %> >
-		<input type="hidden" id="gameArt" value=<%= currentGameArt %> >
-		<input type="hidden" id="gametitle"  value=<%= currentGameTitle %>>
+		<input type="hidden" id="gamefile" value=<%= currentGameFile %>>
+		<input type="hidden" id="gameArt" value=<%= currentGameArt %>>
+		<input type="hidden" id="gametitle" value=<%= currentGameTitle %>>
 	</div>
 
 
-  <div class="gameboyContainer">
-    <% include partials/gameboyconsole.ejs %>
-  </div>
+	<div class="gameboyContainer">
+		<% include partials/gameboyconsole.ejs %>
+	</div>
 
 	<div>
 		<% include partials/menu.ejs %>
 	</div>
 
-  <div class="lets-get-physical">
+	<div class="lets-get-physical">
 
-			<p class="nowPlaying"><a href="/letsgetphysical"> Click to buy a physical version of <br> "<%= currentGameTitle %>"</a></p>
-			<!-- <a> My Console </a> -->
-			<div id="centeralign3d">
+		<p class="nowPlaying"><a href="/letsgetphysical"> Click to buy a physical version of <br> "<%= currentGameTitle %>"</a></p>
+		<!-- <a> My Console </a> -->
+		<div id="centeralign3d">
 			<section class="cartridge3d">
-			<div class="case3d">
-			<figure class="front3d">
-			 <figure class="base3d tall3d"></figure>
-			 <figure class="base3d wide3d"></figure>
-			 <figure class="line3dbase3d"></figure>
-			 <figure class="line3d one3d"></figure>
-			 <figure class="line3d two3d"></figure>
-			 <figure class="line3d three3d"></figure>
-			 <figure class="line3d four3d"></figure>
-			 <figure class="leftindent3d"></figure>
-			 <figure class="rightindent3d"></figure>
-			 <figure class="oval3d"></figure>
-			 <figure class="label3d" style="background-image: url( <%=  currentGameArt %>)"></figure>
-			</figure>
+				<div class="case3d">
+					<figure class="front3d">
+						<figure class="base3d tall3d"></figure>
+						<figure class="base3d wide3d"></figure>
+						<figure class="line3dbase3d"></figure>
+						<figure class="line3d one3d"></figure>
+						<figure class="line3d two3d"></figure>
+						<figure class="line3d three3d"></figure>
+						<figure class="line3d four3d"></figure>
+						<figure class="leftindent3d"></figure>
+						<figure class="rightindent3d"></figure>
+						<figure class="oval3d"></figure>
+						<figure class="label3d" style="background-image: url( <%=  currentGameArt %>)"></figure>
+					</figure>
 
-			<figure class="back3d">
-			 <figure class="base3d tall3d"></figure>
-			 <figure class="base3d wide3d"></figure>
-			 <figure class="line3d one3d"></figure>
-			 <figure class="line3d two3d"></figure>
-			 <figure class="line3d three3d"></figure>
-			 <figure class="line3d four3d"></figure>
-			</figure>
+					<figure class="back3d">
+						<figure class="base3d tall3d"></figure>
+						<figure class="base3d wide3d"></figure>
+						<figure class="line3d one3d"></figure>
+						<figure class="line3d two3d"></figure>
+						<figure class="line3d three3d"></figure>
+						<figure class="line3d four3d"></figure>
+					</figure>
 
-			<figure class="rightside3d">
-				<figure class="top3d"></figure>
-				<figure class="bottom3d"></figure>
-				<figure class="line3d one3d"></figure>
-				<figure class="ceiling3d one3d"></figure>
-				<figure class="floor3d one3d"></figure>
-				<figure class="line3d two3d"></figure>
-				<figure class="ceiling3d two3d"></figure>
-				<figure class="floor3d two3d"></figure>
-				<figure class="line3d three3d"></figure>
-				<figure class="ceiling3d three3d"></figure>
-				<figure class="floor3d three3d"></figure>
-				<figure class="line3d four3d"></figure>
-				<figure class="ceiling3d four3d"></figure>
-				<figure class="floor3d four3d"></figure>
-			</figure>
+					<figure class="rightside3d">
+						<figure class="top3d"></figure>
+						<figure class="bottom3d"></figure>
+						<figure class="line3d one3d"></figure>
+						<figure class="ceiling3d one3d"></figure>
+						<figure class="floor3d one3d"></figure>
+						<figure class="line3d two3d"></figure>
+						<figure class="ceiling3d two3d"></figure>
+						<figure class="floor3d two3d"></figure>
+						<figure class="line3d three3d"></figure>
+						<figure class="ceiling3d three3d"></figure>
+						<figure class="floor3d three3d"></figure>
+						<figure class="line3d four3d"></figure>
+						<figure class="ceiling3d four3d"></figure>
+						<figure class="floor3d four3d"></figure>
+					</figure>
 
-			 <figure class="leftside3d">
-				<figure class="bottom3d"></figure>
-				<figure class="line3d one3d"></figure>
-				<figure class="ceiling3d one3d"></figure>
-				<figure class="floor3d one3d"></figure>
-				<figure class="line3d two3d"></figure>
-				<figure class="ceiling3d two3d"></figure>
-				<figure class="floor3d two3d"></figure>
-				<figure class="line3d three3d"></figure>
-				<figure class="ceiling3d three3d"></figure>
-				<figure class="floor3d three3d"></figure>
-				<figure class="line3d four3d"></figure>
-				<figure class="ceiling3d four3d"></figure>
-				<figure class="floor3d four3d"></figure>
-			</figure>
+					<figure class="leftside3d">
+						<figure class="bottom3d"></figure>
+						<figure class="line3d one3d"></figure>
+						<figure class="ceiling3d one3d"></figure>
+						<figure class="floor3d one3d"></figure>
+						<figure class="line3d two3d"></figure>
+						<figure class="ceiling3d two3d"></figure>
+						<figure class="floor3d two3d"></figure>
+						<figure class="line3d three3d"></figure>
+						<figure class="ceiling3d three3d"></figure>
+						<figure class="floor3d three3d"></figure>
+						<figure class="line3d four3d"></figure>
+						<figure class="ceiling3d four3d"></figure>
+						<figure class="floor3d four3d"></figure>
+					</figure>
 
-			 <figure class="topside3d">
-				 <figure class="left3d"></figure>
-				 <figure class="right3d"></figure>
-			 </figure>
+					<figure class="topside3d">
+						<figure class="left3d"></figure>
+						<figure class="right3d"></figure>
+					</figure>
+					<figure class="bottomside3d">
+						<figure class="side3d">
+						</figure>
 
-			 <figure class="bottomside3d">
-				 <figure class="side3d">
-			 </figure>
-
-			</div>
+				</div>
 			</section>
-			</div>
+		</div>
 
 
 
-  </div>
+	</div>
 
 
 

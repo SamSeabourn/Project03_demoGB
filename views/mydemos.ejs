@@ -6,44 +6,46 @@
 
 <body>
 	<div class="topPad"></div>
-  <div class="">
+	<div class="">
 
 		<% data.forEach(function(game){ %>
-			<div class="cartridge">
-			  <div class="part part_1"></div>
-			  <div class="part part_2">
-			    <div class="part stripe"></div>
-			    <div class="part stripe"></div>
-			    <div class="part stripe"></div>
-			    <div class="part stripe"></div>
-			    <div class="part stripe"></div>
-			  </div>
-			  <div class="part logo"><p>Nintendo <span>Gameboy</span></p></div>
-			  <div class="part large"></div>
-			  <div class="part dark">
-			    <div class="part"></div>
-			  </div>
-			  <div class="part dark image_bg">
-			    <div class="part gameimage">
-			    	<img src=<%= game.coverArt %> alt=<%= game.title %> id="sticker">
-			    </div>
-			  </div>
-			  <div class="part triangle"></div>
-				<div>
-					<h1>
-						<form action="/playthisgame/" method="POST">
-							<input type="hidden" name="gameID" value=<%= game._id %> >
-							<input value="Play <%= game.title %>" class="darkmagentabg white playButtons2 deleteOne" type="submit"/></submit>
-						</form>
-						<form action="/deletethisgame/" method="POST">
-							<input  type="hidden" name="gameID" value=<%= game._id %>  >
-							<input value="DELETE"  class="deleteButton" type="submit"/></submit>
-						</form>
-					</h1>
+		<div class="cartridge">
+			<div class="part part_1"></div>
+			<div class="part part_2">
+				<div class="part stripe"></div>
+				<div class="part stripe"></div>
+				<div class="part stripe"></div>
+				<div class="part stripe"></div>
+				<div class="part stripe"></div>
+			</div>
+			<div class="part logo">
+				<p>Nintendo <span>Gameboy</span></p>
+			</div>
+			<div class="part large"></div>
+			<div class="part dark">
+				<div class="part"></div>
+			</div>
+			<div class="part dark image_bg">
+				<div class="part gameimage">
+					<img src=<%= game.coverArt %> alt=<%= game.title %> id="sticker">
 				</div>
 			</div>
+			<div class="part triangle"></div>
+			<div>
+				<h1>
+					<form action="/playthisgame/" method="POST">
+						<input type="hidden" name="gameID" value=<%= game._id %>>
+						<input value="Play <%= game.title %>" class="darkmagentabg white playButtons2 deleteOne" type="submit" /></submit>
+					</form>
+					<form action="/deletethisgame/" method="POST">
+						<input type="hidden" name="gameID" value=<%= game._id %>>
+						<input value="DELETE" class="deleteButton" type="submit" /></submit>
+					</form>
+				</h1>
+			</div>
+		</div>
 		<% }) %>
-  </div>
+	</div>
 
 
 

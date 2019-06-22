@@ -4,17 +4,17 @@
 <% include partials/background.ejs %>
 
 <body>
-  <div class="">
-	  </div>
-	 <div class="formbox">
-		 <h1> Sign In </h1>
-	  <form action="/signin/" method="POST">
-			<input type="text" placeholder="Username" name="username"> <br/>
-	    <input type="password" placeholder="Password" name="password"> <br/>
-					<span class="errorZone"> <%= error %> </span> <br/>
-	    <input type="submit" value="Sign In" class="darkmagentabg white" />
-	  </form>
-	  <span>Not a member? <a href="/signup" class="darkmagenta"> sign up here </a></span>
+	<div class="">
+	</div>
+	<div class="formbox">
+		<h1> Sign In </h1>
+		<form action="/signin/" method="POST">
+			<input type="text" placeholder="Username" name="username"> <br />
+			<input type="password" placeholder="Password" name="password"> <br />
+			<span class="errorZone"> <%= error %> </span> <br />
+			<input type="submit" value="Sign In" class="darkmagentabg white" />
+		</form>
+		<span>Not a member? <a href="/signup" class="darkmagenta"> sign up here </a></span>
 	</div>
 </body>
 
