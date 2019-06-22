@@ -1,7 +1,7 @@
 
 # DemoGB  - Try, share and buy real Gameboy games
 
-### General Assembly — SEI-31
+### General Assembly SEI31
 
 ### About Demo GB
 
