@@ -1,5 +1,5 @@
 
-# DemoGB  - Try, share and buy real Gameboy games
+# DemoGB  - Try, share and buy real Gameboy games.
 
 ### General Assembly SEI31
 
@@ -25,7 +25,7 @@ DemoGB also allowed me to learn about NoSQL with MongoDB. I really like the flex
 [https://demomygb.herokuapp.com/](https://demomygb.herokuapp.com/)
 
 ### **Potential Updates.**
-- Would like to implement JWT and OAuth  
+- Would like to implement JWT and OAuth. Currenlty running sessions. 
 - Get Stripe payments working would be a huge plus 
 - Deploy to custom domain name
 - Get a small user base working with a few users sharing
