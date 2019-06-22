@@ -24,7 +24,7 @@ DemoGB also allowed me to learn about NoSQL with MongoDB. I really like the flex
 ### **Hosted Site**
 [https://demomygb.herokuapp.com/](https://demomygb.herokuapp.com/)
 
-### **Potential Updates.**
+### **Potential Updates**
 - Would like to implement JWT and OAuth. Currenlty running sessions. 
 - Get Stripe payments working would be a huge plus 
 - Deploy to custom domain name
