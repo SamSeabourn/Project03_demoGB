@@ -86,7 +86,21 @@ h1 {
 .formbox {
 	position: relative;
 	z-index: 205;
-  margin: 0 24.65vw;
+  margin: 0 auto;
+  padding: 2%;
+  text-align: center;
+  margin-top: 20vh;
+  background-color: white;
+  width: 50vw;
+  height: auto;
+  -webkit-box-shadow: 3px -3px 47px 5px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 3px -3px 47px 5px rgba(0, 0, 0, 0.22);
+  box-shadow: 3px -3px 47px 5px rgba(0, 0, 0, 0.22);
+}
+.modalFormbox {
+	position: absolute;
+	z-index: 205;
+  margin: 0 0 0 24.65vw;
   padding: 2%;
   text-align: center;
   margin-top: 20vh;
@@ -796,7 +810,7 @@ figure {
     z-index: 200;
     background-color: black;
     width: 100%;
-    height: 86vw;
+    height: 106vh;
     opacity: 0.6;
 }
 

@@ -13,7 +13,7 @@ const fileUpload =      require('express-fileupload');
 global.User = require('./models/userschema')
 global.Game = require('./models/gameschema')
 
-let freshLogin = true;
+let freshLogin = false;
 
 const server = express();
 
@@ -68,10 +68,10 @@ server.use(expressSession({
 
 // Home Page
 server.get('/home', (req, res) => {
-  console.log(req.session.currentGameTitle);
-  // if (!req.session.success) {
-  //   res.render('pleaselogin.ejs')
-  // } // Login Checker
+  if (!req.session.success) {
+    res.render('pleaselogin.ejs')
+  } // Login Checker
+	console.log(req.session.currentGameTitle);
   console.log(req.session);
 	console.log( freshLogin );
   res.render('home.ejs', {
@@ -108,6 +108,13 @@ server.get('/signin', (req, res) => {
   res.render('signin.ejs', {
     error: ""
   });
+});
+
+// Close Modal
+server.get('/modalclose', (req, res) => {
+	console.log( "Modal closed activated");
+	freshLogin = false;
+  res.redirect('/home')
 });
 
 // Play demos
