@@ -215,7 +215,7 @@ XAudioServer.prototype.initializeWebAudio = function () {
 		for (var channel = 0; channel < outputBuffer.numberOfChannels; channel++) {
 		  var inputData = inputBuffer.getChannelData(channel);
 		  var outputData = outputBuffer.getChannelData(channel);
-	  
+
 		  // Loop through the 4096 samples
 		  for (var sample = 0; sample < inputBuffer.length; sample++) {
 			// make output equal to the same as the input
@@ -234,7 +234,7 @@ XAudioServer.prototype.initializeWebAudio = function () {
 	  1,
 	  XAudioJSWebAudioContextHandle.currentTime + 0.5
 	);
-  
+
 	document.addEventListener("visibilitychange", function(event) {
 	  if (document.hidden) {
 		// Ramp down gain to avoid pop when switching tab away
@@ -250,7 +250,7 @@ XAudioServer.prototype.initializeWebAudio = function () {
 		);
 	  }
 	});
-	
+
     this.resetCallbackAPIAudioBuffer(XAudioJSWebAudioContextHandle.sampleRate);
     this.audioType = 1;
     /*

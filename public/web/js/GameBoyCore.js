@@ -124,8 +124,8 @@ function GameBoyCore(canvas, ROMImage) {
 	this.soundMasterEnabled = false;			//As its name implies
 	this.channel3PCM = null;					//Channel 3 adjusted sample buffer.
 	//Vin Shit:
-	this.VinLeftChannelMasterVolume = 8;		//Computed post-mixing volume.
-	this.VinRightChannelMasterVolume = 8;		//Computed post-mixing volume.
+	this.VinLeftChannelMasterVolume = 0;		//Computed post-mixing volume. Turned to 0 as it was broken
+	this.VinRightChannelMasterVolume = 0;		//Computed post-mixing volume. Turned to 0 as it was broken
 	//Channel paths enabled:
 	this.leftChannel1 = false;
 	this.leftChannel2 = false;

@@ -28,6 +28,18 @@ var btnStart = document.getElementById("controller_start");
 var btnSelect = document.getElementById("controller_select");
 var dpad = document.getElementById("controller_dpad");
 
+//Sammys bonus script
+var d_left = document.getElementById("controller_left");
+// var d_left = $("#controller_left");
+var d_up = document.getElementById("controller_up");
+var d_down = document.getElementById("controller_down");
+var d_right = document.getElementById("controller_right");
+
+console.log( "Testing");
+console.log( d_left );
+
+var counts = 0
+
 function bindButton(el, code) {
   el.addEventListener("touchstart", function(e) {
     e.preventDefault();
@@ -198,6 +210,7 @@ if (isTouchEnabled) {
   bindButton(btnSelect, "select");
   bindDpad(dpad);
 } else {
-  controller.style.display = "none";
+  // controller.style.display = "none";
+	console.log( "Not today son");
 }
 bindKeyboard();
