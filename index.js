@@ -13,6 +13,8 @@ const fileUpload =      require('express-fileupload');
 global.User = require('./models/userschema')
 global.Game = require('./models/gameschema')
 
+let freshLogin = true;
+
 const server = express();
 
 ///////// CLOUDINARY CONFIG ////////
@@ -67,14 +69,16 @@ server.use(expressSession({
 // Home Page
 server.get('/home', (req, res) => {
   console.log(req.session.currentGameTitle);
-  if (!req.session.success) {
-    res.render('pleaselogin.ejs')
-  } // Login Checker
+  // if (!req.session.success) {
+  //   res.render('pleaselogin.ejs')
+  // } // Login Checker
   console.log(req.session);
+	console.log( freshLogin );
   res.render('home.ejs', {
     currentGameTitle: req.session.currentGameTitle,
     currentGameFile: req.session.currentGamefile,
-    currentGameArt: req.session.currentGameArt
+    currentGameArt: req.session.currentGameArt,
+		modal: freshLogin
   })
 });
 
@@ -262,6 +266,7 @@ server.post('/signup', (req, res) => {
         })
         return
       } else {
+				freshLogin = true;
         res.redirect('/signin')
       }
     })
@@ -287,7 +292,7 @@ server.post('/signin', (req, res) => {
     hash = foundUser.password
     if (mongoError) {
       res.render('signin.ejs', {
-        error: "Looks like the database is crapping it self, well dam"
+        error: "Looks like the database isn't itself today, well dam"
       })
       return
     }
@@ -296,7 +301,7 @@ server.post('/signin', (req, res) => {
         console.log(bcryptRes);
         req.session.success = true;
         req.session.username = currentUser
-        req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560382389/bvcdn019354ctoqsjq8o.gb"
+        req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560346037/tihrtlb1nctfi0rmftfg.gb"
         req.session.currentGameTitle = "Stuff About Me"
         req.session.currentGameArt = "https://res.cloudinary.com/dpl1ntt00/image/upload/v1560346244/dwvmgez1bbxoxwud47fo.jpg"
         console.log(req.session);
