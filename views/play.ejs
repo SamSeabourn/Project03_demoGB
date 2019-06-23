@@ -7,6 +7,10 @@
 <body>
 	<div class="topPad"></div>
 	<% data.forEach(function(game){ %>
+	<div class="playInfo">
+		<h4 class="titleField"><%= game.title %></h4>
+		<h6 class="descriptionFeild"> <%= game.description %></h6>
+	</div>
 	<div class="cartridge">
 		<div class="part part_1"></div>
 		<div class="part part_2">

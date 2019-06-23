@@ -7,7 +7,43 @@ $gb-grey = #9304a0; */
   /* border: 1px dashed white; */
   font-family: 'Rubik', sans-serif;
   /* font-faminoly: 'Noto Sans JP', sans-serif; */
-  color: black;
+  /* color: black; */
+}
+
+.descriptionFeild {
+  text-align: center;
+  font-size: 1.2vw;
+  margin: 0 0 0 0;
+  color: #c92c61;
+	font-style: italic;
+}
+.titleField {
+	text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.64);
+  text-align: center;
+  font-size: 3.2vw;
+  margin: 0 0 0 0;
+  color: white;
+}
+
+.specialOccasion {
+	padding: 3%;
+	margin: 1% 0;
+	font-size: 20px;
+	width: 100%;
+	border-width: 0px;
+	border-color: #CCCCCC;
+	background-color: #d1316b;
+	color: #ffffff;
+	border-style: solid;
+	border-radius: 0px;
+	box-shadow: 0px 0px 8px rgba(66, 66, 66, .72);
+}
+
+.playInfo	{
+	text-align: center;
+	width: 30vw;
+	margin: 0 auto;
+	height: auto;
 }
 
 a {
@@ -27,9 +63,6 @@ a:hover {
   display: none;
 }
 
-/* #controller {
-  display: none;
-} */
 
 #mainCanvas {
   width: auto;
@@ -183,6 +216,9 @@ input:focus {
   right: 2%;
   background-color: rgba(0, 0, 0, 0.7);
 }
+.lets-get-physical a {
+	font-size: 2vw;
+}
 
 .nowPlaying {
   text-align: center;
@@ -233,7 +269,7 @@ input:focus {
   left: 2%;
   z-index: 11;
   background-color: rgba(0, 0, 0, 0.7);
-  font-size: 27px;
+  font-size: 2vw;
 }
 
 .backButton a {
@@ -870,6 +906,30 @@ figure {
 }
 
 @media (max-height: 600px) {
+	.descriptionFeild {
+	  text-align: center;
+	  font-size: 3.2vw;
+	  margin: 0 0 0 0;
+	  color: #c92c61;
+		font-style: italic;
+	}
+	.titleField {
+		text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.64);
+	  text-align: center;
+	  font-size: 4.2vw;
+	  margin: 0 0 0 0;
+	  color: white;
+	}
+
+	.playInfo	{
+		text-align: center;
+		width: 45vw;
+		margin: 0 auto;
+		height: auto;
+	}
+
+
+
   .demoGBlogo {
     margin: -1% !important;
   }
