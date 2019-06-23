@@ -981,7 +981,7 @@ figure {
     background-image: none;
     margin: 0 0 0 0;
     border: none;
-    height: 750px;
+    height: 50%;
     width: 100%;
     transform: translateZ(0px);
   }
@@ -1021,8 +1021,8 @@ figure {
 	  }
 	}
 
-#controllerA {
-	zoom: 2.5; -moz-transform: scale(2.5);
+#controller {
+	zoom: 2.5;
 	display: block;
 	position: fixed;
 	bottom: 11%;
