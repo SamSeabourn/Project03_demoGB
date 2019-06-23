@@ -254,7 +254,7 @@ input:focus {
 }
 
 .topPad {
-  height: 12vh;
+  height: 10vw;
   width: 100%;
 }
 
@@ -906,27 +906,6 @@ figure {
 }
 
 @media (max-height: 600px) {
-	.descriptionFeild {
-	  text-align: center;
-	  font-size: 3.2vw;
-	  margin: 0 0 0 0;
-	  color: #c92c61;
-		font-style: italic;
-	}
-	.titleField {
-		text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.64);
-	  text-align: center;
-	  font-size: 4.2vw;
-	  margin: 0 0 0 0;
-	  color: white;
-	}
-
-	.playInfo	{
-		text-align: center;
-		width: 45vw;
-		margin: 0 auto;
-		height: auto;
-	}
 
 
 
@@ -980,6 +959,28 @@ figure {
 }
 
 @media (orientation:portrait) {
+	.descriptionFeild {
+		text-align: center;
+		font-size: 2.8vw;
+		margin: 0 0 0 0;
+		color: #c92c61;
+		font-style: italic;
+	}
+	.titleField {
+		text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.64);
+		text-align: center;
+		font-size: 4.2vw;
+		margin: 0 0 0 0;
+		color: white;
+	}
+
+	.playInfo	{
+		text-align: center;
+		width: 45vw;
+		margin: 0 auto;
+		height: auto;
+	}
+
 
   .topPad {
     height: 5vh;

@@ -308,7 +308,7 @@ server.post('/signin', (req, res) => {
         console.log(bcryptRes);
         req.session.success = true;
         req.session.username = currentUser
-        req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1560346037/tihrtlb1nctfi0rmftfg.gb"
+        req.session.currentGamefile = "https://res.cloudinary.com/dpl1ntt00/raw/upload/v1561289072/wzsll7ixry6fmt7hnkz9.gb"
         req.session.currentGameTitle = "Stuff About Me"
         req.session.currentGameArt = "https://res.cloudinary.com/dpl1ntt00/image/upload/v1560346244/dwvmgez1bbxoxwud47fo.jpg"
         console.log(req.session);
@@ -339,12 +339,6 @@ server.get('/*', (req, res) => {
 server.listen(PORT, () => console.log(`Now showing on http://localhost:${ PORT }`));
 
 ///////// SERVER FUNCTIONS /////////
-
-
-
-
-
-
 
 
 
